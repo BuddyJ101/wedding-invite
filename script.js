@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all features
-    initHeroCurtains();
+    // initHeroCurtains();
     initScratchCards();
     initCountdown();
     initRSVPForm();
@@ -11,35 +11,35 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Hero Curtains Animation
-function initHeroCurtains() {
-    const hero = document.getElementById('hero');
-    const tapText = document.querySelector('.tap-text');
+// function initHeroCurtains() {
+//     const hero = document.getElementById('hero');
+//     const tapText = document.querySelector('.tap-text');
     
-    if (!hero) return;
+//     if (!hero) return;
     
-    hero.addEventListener('click', function() {
-        hero.classList.add('open');
+//     hero.addEventListener('click', function() {
+//         hero.classList.add('open');
         
-        // Scroll to scratch section after curtains open
-        setTimeout(() => {
-            const scratchSection = document.getElementById('scratch-section');
-            if (scratchSection) {
-                scratchSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 1500);
-    });
+//         // Scroll to scratch section after curtains open
+//         setTimeout(() => {
+//             const scratchSection = document.getElementById('scratch-section');
+//             if (scratchSection) {
+//                 scratchSection.scrollIntoView({ behavior: 'smooth' });
+//             }
+//         }, 1500);
+//     });
     
-    // Also allow keyboard activation
-    hero.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            hero.click();
-        }
-    });
+//     // Also allow keyboard activation
+//     hero.addEventListener('keydown', function(e) {
+//         if (e.key === 'Enter' || e.key === ' ') {
+//             hero.click();
+//         }
+//     });
     
-    hero.setAttribute('tabindex', '0');
-    hero.setAttribute('role', 'button');
-    hero.setAttribute('aria-label', 'Tap to open curtains');
-}
+//     hero.setAttribute('tabindex', '0');
+//     hero.setAttribute('role', 'button');
+//     hero.setAttribute('aria-label', 'Tap to open curtains');
+// }
 
 // Scratch Cards Feature
 function initScratchCards() {
@@ -181,8 +181,8 @@ function showCountdownSection() {
 
 // Countdown Timer
 function initCountdown() {
-    // Wedding date: September 10, 2027
-    const weddingDate = new Date('2027-09-10T16:00:00').getTime();
+    // Wedding date: July 25, 2026
+    const weddingDate = new Date('2026-07-25T15:00:00').getTime();
     
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
@@ -396,56 +396,56 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Parallax effect for hero
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
+// window.addEventListener('scroll', () => {
+//     const hero = document.querySelector('.hero');
+//     if (!hero) return;
     
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * 0.5;
+//     const scrolled = window.pageYOffset;
+//     const rate = scrolled * 0.5;
     
-    if (scrolled < window.innerHeight) {
-        hero.style.transform = `translateY(${rate}px)`;
-    }
-});
+//     if (scrolled < window.innerHeight) {
+//         hero.style.transform = `translateY(${rate}px)`;
+//     }
+// });
 
 // Add some floating particles in the hero
-function createParticles() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
+// function createParticles() {
+//     const hero = document.querySelector('.hero');
+//     if (!hero) return;
     
-    const particleCount = 20;
+//     const particleCount = 20;
     
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 6 + 2}px;
-            height: ${Math.random() * 6 + 2}px;
-            background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.2});
-            border-radius: 50%;
-            left: ${Math.random() * 100}%;
-            top: ${Math.random() * 100}%;
-            animation: float ${Math.random() * 10 + 10}s infinite ease-in-out;
-            pointer-events: none;
-        `;
-        hero.appendChild(particle);
-    }
+//     for (let i = 0; i < particleCount; i++) {
+//         const particle = document.createElement('div');
+//         particle.className = 'particle';
+//         particle.style.cssText = `
+//             position: absolute;
+//             width: ${Math.random() * 6 + 2}px;
+//             height: ${Math.random() * 6 + 2}px;
+//             background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.2});
+//             border-radius: 50%;
+//             left: ${Math.random() * 100}%;
+//             top: ${Math.random() * 100}%;
+//             animation: float ${Math.random() * 10 + 10}s infinite ease-in-out;
+//             pointer-events: none;
+//         `;
+//         hero.appendChild(particle);
+//     }
     
-    // Add keyframes
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-30px) translateX(10px); }
-            50% { transform: translateY(-15px) translateX(-10px); }
-            75% { transform: translateY(-40px) translateX(5px); }
-        }
-    `;
-    document.head.appendChild(style);
-}
+//     // Add keyframes
+//     const style = document.createElement('style');
+//     style.textContent = `
+//         @keyframes float {
+//             0%, 100% { transform: translateY(0) translateX(0); }
+//             25% { transform: translateY(-30px) translateX(10px); }
+//             50% { transform: translateY(-15px) translateX(-10px); }
+//             75% { transform: translateY(-40px) translateX(5px); }
+//         }
+//     `;
+//     document.head.appendChild(style);
+// }
 
-createParticles();
+// createParticles();
 
 // Handle info button
 const infoBtn = document.querySelector('.info-btn');
