@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <!-- Envelope Overlay -->
     <div id="envelope-overlay" class="envelope-overlay">
         <div class="envelope">
@@ -29,14 +30,16 @@
             <p class="click-to-open">Click to open</p>
         </div>
     </div>
+
     <main id="main-content" class="main-content hidden">
+
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
                 <h1 class="couple-names">Amber & Junaid</h1>
                 <p class="subtitle">are getting married!</p>
                 <div class="couple-image-container">
-                    <img src="images/us.png" alt="Erika and Kylian" class="couple-image">
+                    <img src="images/us.png" alt="Amber and Junaid" class="couple-image">
                 </div>
             </div>
         </section>
@@ -45,8 +48,8 @@
         <section class="invitation">
             <h2 class="section-title">DEAR FAMILY<br>AND FRIENDS</h2>
             <div class="invitation-text">
-                <p>This summer a very special and happy event is going to happen - our wedding</p>
-                <p>It is impossible to imagine this day without our closest people. Thus, we are happy to invite you to join and share this wonderful occasion with us</p>
+                <p>This summer, a very special and joyful event is taking place — our wedding.</p>
+                <p>We cannot imagine this day without the people closest to us. We would be honored for you to join us and share in this wonderful celebration.</p>
             </div>
         </section>
 
@@ -56,7 +59,7 @@
                 <p class="scratch-instruction">Scratch all three circles to continue</p>
                 <h2 class="section-title reveal-text">Reveal</h2>
                 <p class="scratch-subtitle">Scratch to discover the date</p>
-                
+
                 <div class="scratch-cards">
                     <div class="scratch-card" data-value="10">
                         <canvas class="scratch-canvas"></canvas>
@@ -64,10 +67,10 @@
                             <span class="reveal-number">10</span>
                         </div>
                     </div>
-                    <div class="scratch-card" data-value="Sept">
+                    <div class="scratch-card" data-value="September">
                         <canvas class="scratch-canvas"></canvas>
                         <div class="scratch-reveal">
-                            <span class="reveal-text-month">Sept</span>
+                            <span class="reveal-text-month">September</span>
                         </div>
                     </div>
                     <div class="scratch-card" data-value="2027">
@@ -95,11 +98,11 @@
                     </div>
                     <div class="countdown-item">
                         <span class="countdown-number" id="minutes">12</span>
-                        <span class="countdown-label">Min</span>
+                        <span class="countdown-label">Minutes</span>
                     </div>
                     <div class="countdown-item">
                         <span class="countdown-number" id="seconds">13</span>
-                        <span class="countdown-label">Sec</span>
+                        <span class="countdown-label">Seconds</span>
                     </div>
                 </div>
                 <p class="countdown-subtitle">until the big day</p>
@@ -110,12 +113,12 @@
         <section class="venue-section">
             <div class="container">
                 <p class="section-intro">The celebration will take place at</p>
-                <p class="venue-note">Extra: custom illustration of your venue</p>
+
                 <div class="venue-card">
                     <div class="venue-illustration">
                         <div class="villa-svg">
+                            <!-- SVG kept exactly the same -->
                             <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Villa illustration -->
                                 <rect x="50" y="120" width="300" height="100" fill="#e8d5c4" stroke="#8b7355" stroke-width="2"/>
                                 <polygon points="40,120 200,50 360,120" fill="#c4a882" stroke="#8b7355" stroke-width="2"/>
                                 <rect x="80" y="150" width="40" height="50" fill="#6b5b4f" rx="2"/>
@@ -134,9 +137,9 @@
                     </div>
                     <div class="venue-info">
                         <h3 class="venue-name">Villa Medicea di Artimino</h3>
-                        <p class="venue-address">Via di Papa Leone X, 28<br>Artimino, Florencia</p>
+                        <p class="venue-address">Via di Papa Leone X, 28<br>Artimino, Florence</p>
                         <p class="venue-date">September 10, 2027</p>
-                        <p class="venue-reception">Reception to Follow</p>
+                        <p class="venue-reception">Reception to follow</p>
                     </div>
                 </div>
             </div>
@@ -145,31 +148,33 @@
         <!-- Menu Section -->
         <section class="menu-section">
             <div class="container">
-                <h3 class="menu-title">Aperitivo</h3>
+
+                <h3 class="menu-title">Appetizers</h3>
                 <div class="menu-item">
-                    <h4>Selección de antipasti toscanos</h4>
-                    <p>Bruschetta, crostini & affettati misti</p>
+                    <h4>Selection of Tuscan antipasti</h4>
+                    <p>Bruschetta, crostini & assorted cured meats</p>
                 </div>
-                
-                <h3 class="menu-title">Primo</h3>
+
+                <h3 class="menu-title">First Course</h3>
                 <div class="menu-item">
-                    <h4>Risotto al tartufo nero di Norcia</h4>
-                    <p>con parmigiano reggiano 24 mesi</p>
+                    <h4>Black truffle risotto</h4>
+                    <p>with aged Parmesan cheese</p>
                 </div>
-                
-                <h3 class="menu-title">Secondo</h3>
+
+                <h3 class="menu-title">Main Course</h3>
                 <div class="menu-item">
-                    <h4>Filetto di manzo alla griglia</h4>
-                    <p>con salsa al vino rosso e verdure di stagione</p>
+                    <h4>Grilled beef fillet</h4>
+                    <p>with red wine sauce and seasonal vegetables</p>
                 </div>
-                
-                <h3 class="menu-title">Dolce</h3>
+
+                <h3 class="menu-title">Dessert</h3>
                 <div class="menu-item">
-                    <h4>Torta nuziale con crema di mascarpone</h4>
-                    <p>e frutti di bosco freschi</p>
+                    <h4>Wedding cake with mascarpone cream</h4>
+                    <p>and fresh berries</p>
                 </div>
-                
-                <p class="menu-wine">Vini della Tenuta</p>
+
+                <p class="menu-wine">Estate wines</p>
+
             </div>
         </section>
 
