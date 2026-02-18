@@ -1,45 +1,32 @@
 // Wedding Invitation Website - Interactive Features
+document.addEventListener('DOMContentLoaded', () => {
+  const envelopeOverlay = document.getElementById('envelope-overlay');
+  const waxSeal = document.getElementById('wax-seal');
+  const mainContent = document.getElementById('main-content'); // optional
+
+  if (!envelopeOverlay || !waxSeal) return;
+
+  waxSeal.addEventListener('click', () => {
+    envelopeOverlay.classList.add('opened');
+
+    // Optional: reveal the site after the animation
+    if (mainContent) {
+      setTimeout(() => {
+        mainContent.classList.remove('hidden');
+        // allow layout to apply before fade-in
+        requestAnimationFrame(() => mainContent.classList.add('visible'));
+      }, 600);
+    }
+  });
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all features
-    // initHeroCurtains();
     initScratchCards();
     initCountdown();
     initRSVPForm();
     initScrollAnimations();
-    initLanguageToggle();
 });
-
-// Hero Curtains Animation
-// function initHeroCurtains() {
-//     const hero = document.getElementById('hero');
-//     const tapText = document.querySelector('.tap-text');
-    
-//     if (!hero) return;
-    
-//     hero.addEventListener('click', function() {
-//         hero.classList.add('open');
-        
-//         // Scroll to scratch section after curtains open
-//         setTimeout(() => {
-//             const scratchSection = document.getElementById('scratch-section');
-//             if (scratchSection) {
-//                 scratchSection.scrollIntoView({ behavior: 'smooth' });
-//             }
-//         }, 1500);
-//     });
-    
-//     // Also allow keyboard activation
-//     hero.addEventListener('keydown', function(e) {
-//         if (e.key === 'Enter' || e.key === ' ') {
-//             hero.click();
-//         }
-//     });
-    
-//     hero.setAttribute('tabindex', '0');
-//     hero.setAttribute('role', 'button');
-//     hero.setAttribute('aria-label', 'Tap to open curtains');
-// }
 
 // Scratch Cards Feature
 function initScratchCards() {
@@ -365,25 +352,6 @@ function initScrollAnimations() {
     });
 }
 
-// Language Toggle
-function initLanguageToggle() {
-    const langBtns = document.querySelectorAll('.lang-btn');
-    
-    langBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            langBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Here you would typically switch languages
-            // For now, just show a notification
-            const lang = this.textContent;
-            if (lang === 'IT') {
-                showNotification('Italian translation coming soon!', 'info');
-            }
-        });
-    });
-}
-
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -394,63 +362,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
-// Parallax effect for hero
-// window.addEventListener('scroll', () => {
-//     const hero = document.querySelector('.hero');
-//     if (!hero) return;
-    
-//     const scrolled = window.pageYOffset;
-//     const rate = scrolled * 0.5;
-    
-//     if (scrolled < window.innerHeight) {
-//         hero.style.transform = `translateY(${rate}px)`;
-//     }
-// });
-
-// Add some floating particles in the hero
-// function createParticles() {
-//     const hero = document.querySelector('.hero');
-//     if (!hero) return;
-    
-//     const particleCount = 20;
-    
-//     for (let i = 0; i < particleCount; i++) {
-//         const particle = document.createElement('div');
-//         particle.className = 'particle';
-//         particle.style.cssText = `
-//             position: absolute;
-//             width: ${Math.random() * 6 + 2}px;
-//             height: ${Math.random() * 6 + 2}px;
-//             background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.2});
-//             border-radius: 50%;
-//             left: ${Math.random() * 100}%;
-//             top: ${Math.random() * 100}%;
-//             animation: float ${Math.random() * 10 + 10}s infinite ease-in-out;
-//             pointer-events: none;
-//         `;
-//         hero.appendChild(particle);
-//     }
-    
-//     // Add keyframes
-//     const style = document.createElement('style');
-//     style.textContent = `
-//         @keyframes float {
-//             0%, 100% { transform: translateY(0) translateX(0); }
-//             25% { transform: translateY(-30px) translateX(10px); }
-//             50% { transform: translateY(-15px) translateX(-10px); }
-//             75% { transform: translateY(-40px) translateX(5px); }
-//         }
-//     `;
-//     document.head.appendChild(style);
-// }
-
-// createParticles();
-
-// Handle info button
-const infoBtn = document.querySelector('.info-btn');
-if (infoBtn) {
-    infoBtn.addEventListener('click', () => {
-        showNotification('Sam & Sofia Wedding - September 10, 2027', 'info');
-    });
-}
