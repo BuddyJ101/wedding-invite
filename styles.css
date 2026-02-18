@@ -149,62 +149,67 @@ h1, h2, h3, h4 {
 }
 
 /* Wax Seal */
-.wax-seal {
+.wax-seal{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -35%);
-  width: clamp(110px, 18vh, 190px);
-  height: clamp(110px, 18vh, 190px);
-  background: linear-gradient(145deg, #F8E8E0 0%, #E8D4C8 50%, #D4C4B8 100%);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
   cursor: pointer;
   z-index: 10;
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.3),
-    inset 0 -3px 10px rgba(0, 0, 0, 0.1),
-    inset 0 3px 10px rgba(255, 255, 255, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  width: clamp(120px, 18vh, 200px);
+  height: clamp(120px, 18vh, 200px);
+
+  display: grid;
+  place-items: center;
+
+  transition: transform 0.3s ease;
 }
 
-.wax-seal::before {
+.wax-seal img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.35)) brightness(0.98);
+}
+
+/* .wax-seal::before {
   content: '';
   position: absolute;
   inset: 8px;
   border: 2px solid rgba(180, 160, 140, 0.4);
   border-radius: 50%;
+} */
+
+.wax-seal:hover{
+  transform: translate(-50%, -35%) scale(1.05);
 }
 
-.wax-seal:hover {
-  transform: translate(-50%, -30%) scale(1.05);
+.wax-seal:active{
+  transform: translate(-50%, -35%) scale(0.98);
 }
 
-.wax-seal:active {
-  transform: translate(-50%, -30%) scale(0.98);
-}
-
-.seal-inner {
+/* .seal-inner {
   display: flex;
   align-items: center;
   gap: 2px;
   font-family: 'Cormorant Garamond', serif;
   color: #8B7355;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-}
+} */
 
-.seal-initials {
+/* .seal-initials {
   font-size: 28px;
   font-weight: 500;
   font-style: italic;
-}
+} */
 
-.seal-ampersand {
+/* .seal-ampersand {
   font-size: 22px;
   font-weight: 400;
   opacity: 0.8;
-}
+} */
 
 /* "Click to open" */
 .click-to-open {
