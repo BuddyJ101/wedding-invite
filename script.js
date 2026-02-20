@@ -6,18 +6,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!envelopeOverlay || !waxSeal) return;
 
-  waxSeal.addEventListener('click', () => {
-    envelopeOverlay.classList.add('opened');
+//   waxSeal.addEventListener('click', () => {
+//     envelopeOverlay.classList.add('opened');
 
-    // Optional: reveal the site after the animation
+//     // Optional: reveal the site after the animation
+//     if (mainContent) {
+//       setTimeout(() => {
+//         mainContent.classList.remove('hidden');
+//         // allow layout to apply before fade-in
+//         requestAnimationFrame(() => mainContent.classList.add('visible'));
+//       }, 600);
+//     }
+//   });
+waxSeal.addEventListener('click', () => {
+  envelopeOverlay.classList.add('opened'); // starts flap animation
+
+  const topFlap = document.querySelector('.envelope-flap-top');
+
+  const onDone = (e) => {
+    if (e.propertyName !== 'transform') return;
+
+    envelopeOverlay.classList.add('faded'); // fade right when done
+
     if (mainContent) {
-      setTimeout(() => {
-        mainContent.classList.remove('hidden');
-        // allow layout to apply before fade-in
-        requestAnimationFrame(() => mainContent.classList.add('visible'));
-      }, 600);
+      mainContent.classList.remove('hidden');
+      requestAnimationFrame(() => mainContent.classList.add('visible'));
     }
-  });
+
+    topFlap.removeEventListener('transitionend', onDone);
+  };
+
+  // If for some reason it can't find the flap, fallback timing
+  if (topFlap) topFlap.addEventListener('transitionend', onDone);
+  else {
+    setTimeout(() => {
+      envelopeOverlay.classList.add('faded');
+      if (mainContent) {
+        mainContent.classList.remove('hidden');
+        requestAnimationFrame(() => mainContent.classList.add('visible'));
+      }
+    }, 1600);
+  }
+});
+
+
 });
 
 document.addEventListener('DOMContentLoaded', function() {
