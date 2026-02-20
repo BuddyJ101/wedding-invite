@@ -375,6 +375,125 @@ h4 {
 }
 
 /* Hero Section */
+.hero {
+    position: relative;
+}
+
+.hero-scrub {
+    height: 320vh;
+    position: relative;
+    margin-top: 18px;
+}
+
+.hero-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.hero-arch {
+    width: min(92vw, 420px);
+    height: min(78vh, 560px);
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    border-radius: 999px 999px 40px 40px;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 L0,52 C0,18 18,0 50,0 C82,0 100,18 100,52 L100,100 Z' fill='white'/%3E%3C/svg%3E");
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 L0,52 C0,18 18,0 50,0 C82,0 100,18 100,52 L100,100 Z' fill='white'/%3E%3C/svg%3E");
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.22);
+}
+
+.hero-arch::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: inherit;
+}
+
+/* Canvas fills the arch */
+#hero-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Hide driver video */
+#hero-video {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#hero-canvas {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-arch {
+    position: relative;
+}
+
+/* Tap-to-enable overlay (only if needed) */
+.hero-unlock {
+    position: absolute;
+    inset: 0;
+    display: none;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+    user-select: none;
+}
+
+.hero-unlock-btn {
+    padding: 12px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.40);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* Make it feel good on small screens */
+@media (max-width: 480px) {
+    .hero-scrub {
+        height: 260vh;
+    }
+
+    .hero-arch {
+        width: min(92vw, 360px);
+        height: min(74vh, 520px);
+    }
+}
+
+.hero-video-debug {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.001;
+    pointer-events: none;
+}
+
 img {
     max-width: 100%;
     display: block;
@@ -396,14 +515,12 @@ img {
     font-family: 'Great Vibes', cursive;
     font-size: 3rem;
     font-weight: 400;
-    /* color: var(--text-primary); */
     margin-bottom: 5px;
     letter-spacing: 1px;
 }
 
 .subtitle {
     font-size: 1.3rem;
-    /* color: var(--text-secondary); */
     margin-bottom: 30px;
     font-weight: 400;
 }

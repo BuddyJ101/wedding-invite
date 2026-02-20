@@ -42,9 +42,24 @@
             <div class="hero-content">
                 <h1 class="couple-names">Amber & Junaid</h1>
                 <p class="subtitle">are getting married!</p>
-                <div class="couple-image-container">
-                    <img src="images/us.png" alt="Amber and Junaid" class="couple-image">
-                </div>
+
+                <!-- NEW: Scroll-scrub arch video -->
+                <section class="hero-scrub" id="hero-scrub" aria-label="Hero animation">
+                    <div class="hero-sticky">
+                        <div class="hero-arch" id="hero-arch">
+                            <canvas id="hero-canvas"></canvas>
+
+                            <!-- hidden driver video -->
+                            <video id="hero-video" src="images/turnaround.mp4" muted playsinline preload="auto"></video>
+
+                            <!-- iOS “unlock” overlay (only shows if needed) -->
+                            <div class="hero-unlock" id="hero-unlock">
+                                <div class="hero-unlock-btn">Tap to enable</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </section>
 

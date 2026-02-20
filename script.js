@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize all features
+    initHeroScrub();
     initScratchCards();
     initCountdown();
     initRSVPForm();
@@ -386,7 +387,7 @@ function initAddToCalendar() {
 
         // Google Calendar format: YYYYMMDDTHHMMSS (local time works fine for most cases)
         const startDate = '20260725T150000';
-        const endDate   = '20260725T230000';
+        const endDate = '20260725T230000';
 
         const url =
             `https://calendar.google.com/calendar/render?action=TEMPLATE` +
@@ -396,6 +397,138 @@ function initAddToCalendar() {
 
         window.open(url, '_blank');
     });
+}
+
+function initHeroScrub() {
+    const section = document.getElementById("hero-scrub");
+    const video = document.getElementById("hero-video");
+    const canvas = document.getElementById("hero-canvas");
+    const unlock = document.getElementById("hero-unlock");
+
+    if (!section || !video || !canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: false });
+
+    let duration = 1;
+    let targetTime = 0;
+    let currentTime = 0;
+    let rafId = null;
+
+    const clamp01 = (x) => Math.max(0, Math.min(1, x));
+
+    function resize() {
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        canvas.width = Math.floor(canvas.clientWidth * dpr);
+        canvas.height = Math.floor(canvas.clientHeight * dpr);
+    }
+
+    // Draw video into canvas using "cover" scaling (like object-fit: cover)
+    function draw() {
+        if (video.readyState < 2) return;
+
+        const cw = canvas.width, ch = canvas.height;
+        const vw = video.videoWidth, vh = video.videoHeight;
+        if (!vw || !vh) return;
+
+        const scale = Math.max(cw / vw, ch / vh);
+        const sw = vw * scale;
+        const sh = vh * scale;
+        const dx = (cw - sw) / 2;
+        const dy = (ch - sh) / 2;
+
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(video, dx, dy, sw, sh);
+    }
+
+    function sectionProgress() {
+        const rect = section.getBoundingClientRect();
+        const viewport = window.innerHeight;
+        const total = section.offsetHeight - viewport;
+        const scrolled = -rect.top;
+        return clamp01(scrolled / total);
+    }
+
+    function updateTargetFromScroll() {
+        const p = sectionProgress();
+        targetTime = p * duration;
+    }
+
+    let seeking = false;
+
+    function tick() {
+        currentTime += (targetTime - currentTime) * 0.18;
+
+        const diff = Math.abs(video.currentTime - currentTime);
+
+        if (!seeking && diff > 0.02) {
+            seeking = true;
+            video.currentTime = currentTime;
+        } else {
+            draw();
+        }
+
+        rafId = requestAnimationFrame(tick);
+    }
+
+    video.addEventListener("seeked", () => {
+        seeking = false;
+        draw();
+    });
+
+    async function primeVideo() {
+        // Some mobile browsers require interaction to allow frame extraction
+        try {
+            video.muted = true;
+            video.playsInline = true;
+            await video.play();
+            video.pause();
+            if (unlock) unlock.style.display = "none";
+            return true;
+        } catch (e) {
+            if (unlock) unlock.style.display = "grid";
+            return false;
+        }
+    }
+
+    if (unlock) {
+        unlock.addEventListener("click", async () => {
+            const ok = await primeVideo();
+            if (ok) draw();
+        });
+    }
+
+    window.addEventListener("resize", () => {
+        resize();
+        draw();
+    }, { passive: true });
+
+    window.addEventListener("scroll", updateTargetFromScroll, { passive: true });
+
+    video.addEventListener("loadedmetadata", async () => {
+        duration = video.duration || 1;
+        resize();
+
+        // Start at first frame
+        video.currentTime = 0;
+
+        // Try unlock
+        await primeVideo();
+
+        updateTargetFromScroll();
+        draw();
+
+        if (rafId) cancelAnimationFrame(rafId);
+        tick();
+    });
+
+    // If cached metadata
+    if (video.readyState >= 1) {
+        duration = video.duration || 1;
+        resize();
+        updateTargetFromScroll();
+        draw();
+        if (!rafId) tick();
+    }
 }
 
 // Smooth scroll for anchor links
