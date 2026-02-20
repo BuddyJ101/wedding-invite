@@ -1,308 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Amber & Junaid - Wedding Invitation</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
-            rel="stylesheet">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amber & Junaid - Wedding Invitation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-    <body>
+<body>
 
-        <!-- Envelope Overlay -->
-        <div id="envelope-overlay" class="envelope-overlay">
-            <div class="envelope">
-                <div class="envelope-flap envelope-flap-top"></div>
-                <div class="envelope-flap envelope-flap-bottom"></div>
-                <div class="envelope-body">
-                </div>
-                <div class="envelope-text">
-                    <h2 class="seal-names">Amber & Junaid</h2>
-                    <p class="seal-click">Click to open</p>
-                </div>
-                <div class="wax-seal" id="wax-seal">
-                    <img src="images/wax-seal.png" alt="Wax Seal">
-                </div>
+    <!-- Envelope Overlay -->
+    <div id="envelope-overlay" class="envelope-overlay">
+        <div class="envelope">
+            <div class="envelope-flap envelope-flap-top"></div>
+            <div class="envelope-flap envelope-flap-bottom"></div>
+            <div class="envelope-body">
+            </div>
+            <div class="envelope-text">
+                <h2 class="seal-names">Amber & Junaid</h2>
+                <p class="seal-click">Click to open</p>
+            </div>
+            <div class="wax-seal" id="wax-seal">
+                <img src="images/wax-seal.png" alt="Wax Seal">
             </div>
         </div>
+    </div>
 
-        <main id="main-content" class="main-content hidden">
+    <main id="main-content" class="main-content hidden">
 
-            <!-- Hero Section -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h1 class="couple-names">Amber & Junaid</h1>
-                    <p class="subtitle">are getting married!</p>
-                    <div class="couple-image-container">
-                        <img src="images/us.png" alt="Amber and Junaid" class="couple-image">
-                    </div>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="couple-names">Amber & Junaid</h1>
+                <p class="subtitle">are getting married!</p>
+                <div class="couple-image-container">
+                    <img src="images/us.png" alt="Amber and Junaid" class="couple-image">
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Invitation Section -->
-            <section class="invitation">
-                <h2 class="section-title">DEAR FAMILY<br>AND FRIENDS</h2>
-                <div class="invitation-text">
-                    <p>This summer, a very special and joyful event is taking place — our wedding.</p>
-                    <p>We cannot imagine this day without the people closest to us. We would be honored for you to join us
-                        and share in this wonderful celebration.</p>
-                </div>
-            </section>
+        <!-- Invitation Section -->
+        <section class="invitation">
+            <h2 class="section-title">DEAR FAMILY<br>AND FRIENDS</h2>
+            <div class="invitation-text">
+                <p>This summer, a very special and joyful event is taking place — our wedding.</p>
+                <p>We cannot imagine this day without the people closest to us. We would be honored for you to join us
+                    and share in this wonderful celebration.</p>
+            </div>
+        </section>
 
-            <!-- Scratch Cards Section -->
-            <section class="scratch-section" id="scratch-section">
-                <div class="container">
-                    <p class="scratch-instruction">Scratch all three circles to continue</p>
-                    <h2 class="section-title reveal-text">Reveal</h2>
-                    <p class="scratch-subtitle">Scratch to discover the date</p>
+        <!-- Scratch Cards Section -->
+        <section class="scratch-section" id="scratch-section">
+            <div class="container">
+                <p class="scratch-instruction">Scratch all three circles to continue</p>
+                <h2 class="section-title reveal-text">Reveal</h2>
+                <p class="scratch-subtitle">Scratch to discover the date</p>
 
-                    <div class="scratch-cards">
-                        <div class="scratch-card" data-value="10">
-                            <canvas class="scratch-canvas"></canvas>
-                            <div class="scratch-reveal">
-                                <span class="reveal-number">10</span>
-                            </div>
-                        </div>
-                        <div class="scratch-card" data-value="September">
-                            <canvas class="scratch-canvas"></canvas>
-                            <div class="scratch-reveal">
-                                <span class="reveal-text-month">September</span>
-                            </div>
-                        </div>
-                        <div class="scratch-card" data-value="2027">
-                            <canvas class="scratch-canvas"></canvas>
-                            <div class="scratch-reveal">
-                                <span class="reveal-year">2027</span>
-                            </div>
+                <div class="scratch-cards">
+                    <div class="scratch-card" data-value="10">
+                        <canvas class="scratch-canvas"></canvas>
+                        <div class="scratch-reveal">
+                            <span class="reveal-number">10</span>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            <!-- Countdown Section -->
-            <section class="countdown-section">
-                <div class="container">
-                    <h2 class="section-title">Countdown</h2>
-                    <div class="countdown">
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="days">259</span>
-                            <span class="countdown-label">Days</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="hours">14</span>
-                            <span class="countdown-label">Hours</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="minutes">12</span>
-                            <span class="countdown-label">Minutes</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-number" id="seconds">13</span>
-                            <span class="countdown-label">Seconds</span>
+                    <div class="scratch-card" data-value="September">
+                        <canvas class="scratch-canvas"></canvas>
+                        <div class="scratch-reveal">
+                            <span class="reveal-text-month">September</span>
                         </div>
                     </div>
-                    <p class="countdown-subtitle">until the big day</p>
+                    <div class="scratch-card" data-value="2027">
+                        <canvas class="scratch-canvas"></canvas>
+                        <div class="scratch-reveal">
+                            <span class="reveal-year">2027</span>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Venue Section -->
-            <section class="venue-section">
-                <div class="container">
-                    <p class="section-intro">The celebration will take place at</p>
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+            <div class="container">
+                <h2 class="section-title">Countdown</h2>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">259</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">14</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">12</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">13</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+                <p class="countdown-subtitle">until the big day</p>
+            </div>
+        </section>
 
-                    <div class="venue-card">
-                        <div class="venue-illustration">
-                            <div class="villa-svg">
-                                <!-- SVG kept exactly the same -->
-                                <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="50" y="120" width="300" height="100" fill="#e8d5c4" stroke="#8b7355"
-                                        stroke-width="2" />
-                                    <polygon points="40,120 200,50 360,120" fill="#c4a882" stroke="#8b7355"
-                                        stroke-width="2" />
-                                    <rect x="80" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
-                                    <rect x="140" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
-                                    <rect x="220" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
-                                    <rect x="280" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
-                                    <rect x="170" y="170" width="60" height="50" fill="#8b7355" rx="2" />
-                                    <circle cx="185" cy="195" r="3" fill="#4a3f35" />
-                                    <rect x="60" y="200" width="280" height="10" fill="#a89080" />
-                                    <path d="M30 220 Q200 200 370 220" stroke="#7a9a6a" stroke-width="15" fill="none" />
-                                    <ellipse cx="100" cy="215" rx="25" ry="15" fill="#6a8a5a" />
-                                    <ellipse cx="300" cy="215" rx="25" ry="15" fill="#6a8a5a" />
-                                    <ellipse cx="200" cy="210" rx="30" ry="18" fill="#5a7a4a" />
+        <!-- Venue Section -->
+        <section id="lugar" class="venue-section">
+            <div class="container">
+                <div class="venue-content">
+                    <div class="venue-text">
+                        <span class="section-tag">The Venue</span>
+                        <h2 class="section-title">Finca Biniagual</h2>
+                        <p class="venue-description">
+                            A magical corner in the heart of Mallorca, where nature and elegance
+                            come together to create the perfect setting for our celebration.
+                        </p>
+                        <div class="venue-details">
+                            <div class="detail-item">
+                                <span class="detail-icon">📍</span>
+                                <div class="detail-text">
+                                    <span class="detail-label">Address</span>
+                                    <span class="detail-value">Camí de Biniagual, Algaida, Mallorca</span>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">🕐</span>
+                                <div class="detail-text">
+                                    <span class="detail-label">Time</span>
+                                    <span class="detail-value">18:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="https://maps.google.com/?q=Finca+Biniagual+Mallorca" target="_blank"
+                            class="btn btn-primary">
+                            Directions
+                        </a>
+                    </div>
+                    <div class="venue-image">
+                        <img src="images/finca-biniagual-tpK1hn9e.webp" alt="Finca Biniagual - Aerial view">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Details Section -->
+        <section id="detalles" class="details-section">
+            <div class="container">
+                <div class="details-content">
+                    <div class="cake-illustration">
+                        <img src="images/cake-illustration-CqyuXZsG.png" alt="Come for our love, stay for the cake!">
+                    </div>
+
+                    <div class="details-header">
+                        <h2 class="details-title-script">Day Details</h2>
+                        <p class="details-subtitle">Everything you need to know</p>
+                    </div>
+
+                    <div class="location-card">
+                        <div class="location-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+
+                        <h3 class="location-title">Location</h3>
+
+                        <div class="location-info">
+                            <p class="location-name">Finca Biniagual</p>
+                            <p class="location-address">Camí de Biniagual, Algaida, Mallorca</p>
+                            <p class="location-time">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
+                                From 17:00 to 03:00
+                            </p>
+                        </div>
+
+                        <div class="location-image">
+                            <img src="images/finca-biniagual-tpK1hn9e.webp" alt="Finca Biniagual - Aerial view">
+                            <div class="image-overlay"></div>
+                        </div>
+
+                        <div class="location-map">
+                            <iframe src="https://www.google.com/maps?q=Finca+Biniagual+Mallorca&output=embed"
+                                width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade" title="Map of Finca Biniagual">
+                            </iframe>
+                        </div>
+
+                        <div class="location-buttons">
+                            <a href="https://maps.google.com/?q=Finca+Biniagual+Mallorca" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                Open in Maps
+                            </a>
+
+                            <a href="#" class="btn btn-outline" id="addToCalendar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                                    <line x1="16" x2="16" y1="2" y2="6" />
+                                    <line x1="8" x2="8" y1="2" y2="6" />
+                                    <line x1="3" x2="21" y1="10" y2="10" />
+                                </svg>
+                                Add to Calendar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Program Section -->
+        <section id="programa" class="program-section">
+            <div class="container">
+                <div class="program-header">
+                    <h2 class="program-title-script">Schedule</h2>
+                    <p class="program-subtitle">What we have planned for you</p>
+                </div>
+
+                <!-- Desktop Timeline -->
+                <div class="timeline-desktop">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-grid">
+                        <div class="timeline-item">
+                            <span class="timeline-time">17:00</span>
+                            <div class="timeline-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
                             </div>
-                        </div>
-                        <div class="venue-info">
-                            <h3 class="venue-name">Villa Medicea di Artimino</h3>
-                            <p class="venue-address">Via di Papa Leone X, 28<br>Artimino, Florence</p>
-                            <p class="venue-date">September 10, 2027</p>
-                            <p class="venue-reception">Reception to follow</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Menu Section -->
-            <section class="menu-section">
-                <div class="container">
-
-                    <h3 class="menu-title">Appetizers</h3>
-                    <div class="menu-item">
-                        <h4>Selection of Tuscan antipasti</h4>
-                        <p>Bruschetta, crostini & assorted cured meats</p>
-                    </div>
-
-                    <h3 class="menu-title">First Course</h3>
-                    <div class="menu-item">
-                        <h4>Black truffle risotto</h4>
-                        <p>with aged Parmesan cheese</p>
-                    </div>
-
-                    <h3 class="menu-title">Main Course</h3>
-                    <div class="menu-item">
-                        <h4>Grilled beef fillet</h4>
-                        <p>with red wine sauce and seasonal vegetables</p>
-                    </div>
-
-                    <h3 class="menu-title">Dessert</h3>
-                    <div class="menu-item">
-                        <h4>Wedding cake with mascarpone cream</h4>
-                        <p>and fresh berries</p>
-                    </div>
-
-                    <p class="menu-wine">Estate wines</p>
-
-                </div>
-            </section>
-
-            <!-- Dress Code Section -->
-            <section class="dresscode-section">
-                <div class="container">
-                    <h2 class="section-title">Dress Code</h2>
-                    <p class="dresscode-text">We invite you to dress elegantly and formally to celebrate this special day
-                        with us.</p>
-                    <div class="dresscode-type">
-                        <span class="dresscode-icon">✦</span>
-                        <span>Formal Attire</span>
-                    </div>
-                    <p class="dresscode-note">Please avoid wearing white</p>
-                </div>
-            </section>
-
-            <!-- Wedding Registry Section -->
-            <section class="registry-section">
-                <div class="container">
-                    <h2 class="section-title">Wedding registry</h2>
-                    <h3 class="registry-subtitle">Gifts</h3>
-                    <p class="registry-text">Your presence is the best gift we could receive. However, if you wish to
-                        contribute to our new life together, you can do so via bank transfer.</p>
-                    <p class="registry-love">With all our love</p>
-
-                    <div class="bank-details">
-                        <h4>Bank details</h4>
-                        <div class="bank-row">
-                            <span class="bank-label">ACCOUNT HOLDER</span>
-                            <span class="bank-value">SAM & SOFIA</span>
-                        </div>
-                        <div class="bank-row">
-                            <span class="bank-label">IBAN</span>
-                            <span class="bank-value">ES00 0000 0000 0000 0000 0000</span>
-                        </div>
-                        <div class="bank-row">
-                            <span class="bank-label">REFERENCE</span>
-                            <span class="bank-value">Sam & Sofia Wedding</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Transport Section -->
-            <section class="transport-section">
-                <div class="container">
-                    <h2 class="section-title">How to get there</h2>
-                    <h3 class="transport-subtitle">Transport</h3>
-                    <p class="transport-text">We have organized buses from the center of Florence to the villa so you can
-                        enjoy the celebration without worries.</p>
-
-                    <div class="transport-details">
-                        <div class="transport-item">
-                            <h4>Bus departure</h4>
-                            <p class="transport-location">Piazza della Signoria</p>
-                            <p class="transport-time">16:00h</p>
-                        </div>
-                        <div class="transport-item">
-                            <h4>Return to Florence</h4>
-                            <p class="transport-time">02:00h</p>
-                        </div>
-                    </div>
-
-                    <p class="transport-note">Please indicate in your RSVP if you need transport</p>
-                    <p class="transport-custom">This form is fully customizable to your needs</p>
-                </div>
-            </section>
-
-            <!-- RSVP Section -->
-            <section class="rsvp-section">
-                <div class="container">
-                    <h2 class="section-title">Confirm your attendance</h2>
-
-                    <form class="rsvp-form" id="rsvpForm">
-                        <div class="form-group">
-                            <label for="fullname">Full Name <span class="required">*</span></label>
-                            <input type="text" id="fullname" name="fullname" required>
+                            <h4 class="timeline-title">Guest arrival</h4>
+                            <p class="timeline-desc">Reception and welcome at the venue</p>
                         </div>
 
-                        <div class="form-group">
-                            <label for="email">Email (optional)</label>
-                            <input type="email" id="email" name="email">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Will you attend? <span class="required">*</span></label>
-                            <div class="attendance-options">
-                                <button type="button" class="attendance-btn" data-value="yes">
-                                    <span class="btn-icon">○</span>
-                                    Yes, I'll be there!
-                                </button>
-                                <button type="button" class="attendance-btn" data-value="no">
-                                    <span class="btn-icon">○</span>
-                                    No, I can't make it
-                                </button>
+                        <div class="timeline-item">
+                            <span class="timeline-time">17:30</span>
+                            <div class="timeline-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M8 21h8a2 2 0 0 0 2-2v-6H6v6a2 2 0 0 0 2 2Z" />
+                                    <path d="M12 13V3" />
+                                    <path d="M6 13a6 6 0 0 1 12 0" />
+                                </svg>
                             </div>
-                            <input type="hidden" id="attendance" name="attendance" required>
+                            <h4 class="timeline-title">Welcome drink</h4>
+                            <p class="timeline-desc">Cocktail welcome while we get ready</p>
                         </div>
 
-                        <div class="form-group">
-                            <label for="message">Message for the couple (optional)</label>
-                            <textarea id="message" name="message" rows="4"></textarea>
+                        <div class="timeline-item">
+                            <span class="timeline-time">18:00</span>
+                            <div class="timeline-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M2 12h20" />
+                                    <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+                                    <path d="m4 8 16-4" />
+                                    <path
+                                        d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8" />
+                                </svg>
+                            </div>
+                            <h4 class="timeline-title">Ceremony</h4>
+                            <p class="timeline-desc">The most special moment of the day</p>
                         </div>
 
-                        <button type="submit" class="submit-btn">Confirm</button>
-                    </form>
-                </div>
-            </section>
+                        <div class="timeline-item">
+                            <span class="timeline-time">19:00</span>
+                            <div class="timeline-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M8 21h8a2 2 0 0 0 2-2v-6H6v6a2 2 0 0 0 2 2Z" />
+                                    <path d="M12 13V3" />
+                                    <path d="M6 13a6 6 0 0 1 12 0" />
+                                </svg>
+                            </div>
+                            <h4 class="timeline-title">Cocktail hour</h4>
+                            <p class="timeline-desc">Appetizers and drinks in the gardens</p>
+                        </div>
 
-            <!-- Footer -->
-            <footer class="footer">
-                <div class="container">
-                    <h2 class="footer-title">♡</h2>
-                    <p class="footer-names">Amber & Junaid</p>
-                    <p class="footer-text">25 July 2026</p>
-                </div>
-            </footer>
-        </main>
+                        <div class="timeline-item">
+                            <span class="timeline-time">21:00</span>
+                            <div class="timeline-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                                    <path d="M7 2v20" />
+                                    <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+                                </svg>
+                            </div>
+                            <h4 class="timeline-title">Dinner</h4>
+                            <p class="timeline-desc">Dinner and celebration</p>
+                        </div>
 
-        <script src="script.js"></script>
-    </body>
+                        <div class="timeline-item">
+                            <span class="timeline-time">00:00</span>
+                            <div class="timeline-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M9 18V5l12-2v13" />
+                                    <circle cx="6" cy="18" r="3" />
+                                    <circle cx="18" cy="16" r="3" />
+                                </svg>
+                            </div>
+                            <h4 class="timeline-title">Party</h4>
+                            <p class="timeline-desc">Dance until dawn!</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <span class="timeline-time">03:00</span>
+                            <div class="timeline-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M18 6 6 18" />
+                                    <path d="m6 6 12 12" />
+                                </svg>
+                            </div>
+                            <h4 class="timeline-title">End of the party</h4>
+                            <p class="timeline-desc">Goodbye and happy memories</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Timeline -->
+                <div class="timeline-mobile">
+                    <div class="timeline-mobile-line"></div>
+
+                    <div class="timeline-mobile-item">
+                        <div class="timeline-mobile-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <div class="timeline-mobile-content">
+                            <span class="timeline-mobile-time">17:00</span>
+                            <h4 class="timeline-mobile-title">Guest arrival</h4>
+                            <p class="timeline-mobile-desc">Reception and welcome at the venue</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-mobile-item">
+                        <div class="timeline-mobile-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M8 21h8a2 2 0 0 0 2-2v-6H6v6a2 2 0 0 0 2 2Z" />
+                                <path d="M12 13V3" />
+                                <path d="M6 13a6 6 0 0 1 12 0" />
+                            </svg>
+                        </div>
+                        <div class="timeline-mobile-content">
+                            <span class="timeline-mobile-time">17:30</span>
+                            <h4 class="timeline-mobile-title">Welcome drink</h4>
+                            <p class="timeline-mobile-desc">Cocktail welcome while we get ready</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-mobile-item">
+                        <div class="timeline-mobile-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M2 12h20" />
+                                <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+                                <path d="m4 8 16-4" />
+                                <path
+                                    d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8" />
+                            </svg>
+                        </div>
+                        <div class="timeline-mobile-content">
+                            <span class="timeline-mobile-time">18:00</span>
+                            <h4 class="timeline-mobile-title">Ceremony</h4>
+                            <p class="timeline-mobile-desc">The most special moment of the day</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-mobile-item">
+                        <div class="timeline-mobile-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M8 21h8a2 2 0 0 0 2-2v-6H6v6a2 2 0 0 0 2 2Z" />
+                                <path d="M12 13V3" />
+                                <path d="M6 13a6 6 0 0 1 12 0" />
+                            </svg>
+                        </div>
+                        <div class="timeline-mobile-content">
+                            <span class="timeline-mobile-time">19:00</span>
+                            <h4 class="timeline-mobile-title">Cocktail hour</h4>
+                            <p class="timeline-mobile-desc">Appetizers and drinks in the gardens</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-mobile-item">
+                        <div class="timeline-mobile-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                                <path d="M7 2v20" />
+                                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+                            </svg>
+                        </div>
+                        <div class="timeline-mobile-content">
+                            <span class="timeline-mobile-time">21:00</span>
+                            <h4 class="timeline-mobile-title">Dinner</h4>
+                            <p class="timeline-mobile-desc">Dinner and celebration</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-mobile-item">
+                        <div class="timeline-mobile-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 18V5l12-2v13" />
+                                <circle cx="6" cy="18" r="3" />
+                                <circle cx="18" cy="16" r="3" />
+                            </svg>
+                        </div>
+                        <div class="timeline-mobile-content">
+                            <span class="timeline-mobile-time">00:00</span>
+                            <h4 class="timeline-mobile-title">Party</h4>
+                            <p class="timeline-mobile-desc">Dance until dawn!</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-mobile-item">
+                        <div class="timeline-mobile-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M18 6 6 18" />
+                                <path d="m6 6 12 12" />
+                            </svg>
+                        </div>
+                        <div class="timeline-mobile-content">
+                            <span class="timeline-mobile-time">03:00</span>
+                            <h4 class="timeline-mobile-title">End of the party</h4>
+                            <p class="timeline-mobile-desc">Goodbye and happy memories</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="band-illustration">
+                    <img src="images/band-illustration-BnrhyETA.png" alt="Music band illustration">
+                </div>
+            </div>
+        </section>
+
+        <!-- Dress Code Section -->
+        <section class="dresscode-section">
+            <div class="container">
+                <h2 class="section-title">Dress Code</h2>
+                <p class="dresscode-text">We invite you to dress elegantly and formally to celebrate this special day
+                    with us.</p>
+                <div class="dresscode-type">
+                    <span class="dresscode-icon">✦</span>
+                    <span>Formal Attire</span>
+                </div>
+                <p class="dresscode-note">Please avoid wearing white</p>
+            </div>
+        </section>
+
+        <!-- Wedding Registry Section -->
+        <section class="registry-section">
+            <div class="container">
+                <h2 class="section-title">Wedding registry</h2>
+                <h3 class="registry-subtitle">Gifts</h3>
+                <p class="registry-text">Your presence is the best gift we could receive. However, if you wish to
+                    contribute to our new life together, you can do so via bank transfer.</p>
+                <p class="registry-love">With all our love</p>
+
+                <div class="bank-details">
+                    <h4>Bank details</h4>
+                    <div class="bank-row">
+                        <span class="bank-label">ACCOUNT HOLDER</span>
+                        <span class="bank-value">SAM & SOFIA</span>
+                    </div>
+                    <div class="bank-row">
+                        <span class="bank-label">IBAN</span>
+                        <span class="bank-value">ES00 0000 0000 0000 0000 0000</span>
+                    </div>
+                    <div class="bank-row">
+                        <span class="bank-label">REFERENCE</span>
+                        <span class="bank-value">Sam & Sofia Wedding</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transport Section -->
+        <section class="transport-section">
+            <div class="container">
+                <h2 class="section-title">How to get there</h2>
+                <h3 class="transport-subtitle">Transport</h3>
+                <p class="transport-text">We have organized buses from the center of Florence to the villa so you can
+                    enjoy the celebration without worries.</p>
+
+                <div class="transport-details">
+                    <div class="transport-item">
+                        <h4>Bus departure</h4>
+                        <p class="transport-location">Piazza della Signoria</p>
+                        <p class="transport-time">16:00h</p>
+                    </div>
+                    <div class="transport-item">
+                        <h4>Return to Florence</h4>
+                        <p class="transport-time">02:00h</p>
+                    </div>
+                </div>
+
+                <p class="transport-note">Please indicate in your RSVP if you need transport</p>
+                <p class="transport-custom">This form is fully customizable to your needs</p>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="rsvp-section">
+            <div class="container">
+                <h2 class="section-title">Confirm your attendance</h2>
+
+                <form class="rsvp-form" id="rsvpForm">
+                    <div class="form-group">
+                        <label for="fullname">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullname" name="fullname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email (optional)</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Will you attend? <span class="required">*</span></label>
+                        <div class="attendance-options">
+                            <button type="button" class="attendance-btn" data-value="yes">
+                                <span class="btn-icon">○</span>
+                                Yes, I'll be there!
+                            </button>
+                            <button type="button" class="attendance-btn" data-value="no">
+                                <span class="btn-icon">○</span>
+                                No, I can't make it
+                            </button>
+                        </div>
+                        <input type="hidden" id="attendance" name="attendance" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message for the couple (optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Confirm</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <h2 class="footer-title">♡</h2>
+                <p class="footer-names">Amber & Junaid</p>
+                <p class="footer-text">25 July 2026</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
 
 </html>

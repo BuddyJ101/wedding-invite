@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initCountdown();
     initRSVPForm();
     initScrollAnimations();
+    initAddToCalendar();
 });
 
 // Scratch Cards Feature
@@ -369,6 +370,31 @@ function initScrollAnimations() {
     sections.forEach(section => {
         section.classList.add('section-animate');
         observer.observe(section);
+    });
+}
+
+function initAddToCalendar() {
+    const btn = document.getElementById('addToCalendar');
+    if (!btn) return;
+
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Update these to YOUR wedding:
+        const eventTitle = 'Amber & Junaid Wedding';
+        const eventLocation = 'Villa Medicea di Artimino, Via di Papa Leone X, 28, Artimino, Florence';
+
+        // Google Calendar format: YYYYMMDDTHHMMSS (local time works fine for most cases)
+        const startDate = '20260725T150000';
+        const endDate   = '20260725T230000';
+
+        const url =
+            `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+            `&text=${encodeURIComponent(eventTitle)}` +
+            `&dates=${startDate}/${endDate}` +
+            `&location=${encodeURIComponent(eventLocation)}`;
+
+        window.open(url, '_blank');
     });
 }
 
