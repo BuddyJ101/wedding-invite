@@ -1,296 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amber & Junaid - Wedding Invitation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
 
-    <!-- Envelope Overlay -->
-    <div id="envelope-overlay" class="envelope-overlay">
-        <div class="envelope">
-            <div class="envelope-flap envelope-flap-top"></div>
-            <div class="envelope-flap envelope-flap-bottom"></div>
-            <div class="envelope-body">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Amber & Junaid - Wedding Invitation</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+        <!-- Envelope Overlay -->
+        <div id="envelope-overlay" class="envelope-overlay">
+            <div class="envelope">
+                <div class="envelope-flap envelope-flap-top"></div>
+                <div class="envelope-flap envelope-flap-bottom"></div>
+                <div class="envelope-body">
+                </div>
+                <div class="envelope-text">
+                    <h2 class="seal-names">Amber & Junaid</h2>
+                    <p class="seal-click">Click to open</p>
+                </div>
+                <div class="wax-seal" id="wax-seal">
+                    <img src="images/wax-seal.png" alt="Wax Seal">
+                </div>
             </div>
-            <div class="envelope-text">
-                <h2 class="seal-names">Amber & Junaid</h2>
-                <p class="seal-click">Click to open</p>
-            </div>
-            <div class="wax-seal" id="wax-seal">
-                <img src="images/wax-seal.png" alt="Wax Seal">
-            </div>
-            <!-- <p class="click-to-open">Click to open</p> -->
         </div>
-    </div>
 
-    <main id="main-content" class="main-content hidden">
+        <main id="main-content" class="main-content hidden">
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="couple-names">Amber & Junaid</h1>
-                <p class="subtitle">are getting married!</p>
-                <div class="couple-image-container">
-                    <img src="images/us.png" alt="Amber and Junaid" class="couple-image">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="couple-names">Amber & Junaid</h1>
+                    <p class="subtitle">are getting married!</p>
+                    <div class="couple-image-container">
+                        <img src="images/us.png" alt="Amber and Junaid" class="couple-image">
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Invitation Section -->
-        <section class="invitation">
-            <h2 class="section-title">DEAR FAMILY<br>AND FRIENDS</h2>
-            <div class="invitation-text">
-                <p>This summer, a very special and joyful event is taking place — our wedding.</p>
-                <p>We cannot imagine this day without the people closest to us. We would be honored for you to join us and share in this wonderful celebration.</p>
-            </div>
-        </section>
+            <!-- Invitation Section -->
+            <section class="invitation">
+                <h2 class="section-title">DEAR FAMILY<br>AND FRIENDS</h2>
+                <div class="invitation-text">
+                    <p>This summer, a very special and joyful event is taking place — our wedding.</p>
+                    <p>We cannot imagine this day without the people closest to us. We would be honored for you to join us
+                        and share in this wonderful celebration.</p>
+                </div>
+            </section>
 
-        <!-- Scratch Cards Section -->
-        <section class="scratch-section" id="scratch-section">
-            <div class="container">
-                <p class="scratch-instruction">Scratch all three circles to continue</p>
-                <h2 class="section-title reveal-text">Reveal</h2>
-                <p class="scratch-subtitle">Scratch to discover the date</p>
+            <!-- Scratch Cards Section -->
+            <section class="scratch-section" id="scratch-section">
+                <div class="container">
+                    <p class="scratch-instruction">Scratch all three circles to continue</p>
+                    <h2 class="section-title reveal-text">Reveal</h2>
+                    <p class="scratch-subtitle">Scratch to discover the date</p>
 
-                <div class="scratch-cards">
-                    <div class="scratch-card" data-value="10">
-                        <canvas class="scratch-canvas"></canvas>
-                        <div class="scratch-reveal">
-                            <span class="reveal-number">10</span>
+                    <div class="scratch-cards">
+                        <div class="scratch-card" data-value="10">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="scratch-reveal">
+                                <span class="reveal-number">10</span>
+                            </div>
+                        </div>
+                        <div class="scratch-card" data-value="September">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="scratch-reveal">
+                                <span class="reveal-text-month">September</span>
+                            </div>
+                        </div>
+                        <div class="scratch-card" data-value="2027">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="scratch-reveal">
+                                <span class="reveal-year">2027</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="scratch-card" data-value="September">
-                        <canvas class="scratch-canvas"></canvas>
-                        <div class="scratch-reveal">
-                            <span class="reveal-text-month">September</span>
+                </div>
+            </section>
+
+            <!-- Countdown Section -->
+            <section class="countdown-section">
+                <div class="container">
+                    <h2 class="section-title">Countdown</h2>
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="days">259</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="hours">14</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="minutes">12</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="seconds">13</span>
+                            <span class="countdown-label">Seconds</span>
                         </div>
                     </div>
-                    <div class="scratch-card" data-value="2027">
-                        <canvas class="scratch-canvas"></canvas>
-                        <div class="scratch-reveal">
-                            <span class="reveal-year">2027</span>
+                    <p class="countdown-subtitle">until the big day</p>
+                </div>
+            </section>
+
+            <!-- Venue Section -->
+            <section class="venue-section">
+                <div class="container">
+                    <p class="section-intro">The celebration will take place at</p>
+
+                    <div class="venue-card">
+                        <div class="venue-illustration">
+                            <div class="villa-svg">
+                                <!-- SVG kept exactly the same -->
+                                <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="50" y="120" width="300" height="100" fill="#e8d5c4" stroke="#8b7355"
+                                        stroke-width="2" />
+                                    <polygon points="40,120 200,50 360,120" fill="#c4a882" stroke="#8b7355"
+                                        stroke-width="2" />
+                                    <rect x="80" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
+                                    <rect x="140" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
+                                    <rect x="220" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
+                                    <rect x="280" y="150" width="40" height="50" fill="#6b5b4f" rx="2" />
+                                    <rect x="170" y="170" width="60" height="50" fill="#8b7355" rx="2" />
+                                    <circle cx="185" cy="195" r="3" fill="#4a3f35" />
+                                    <rect x="60" y="200" width="280" height="10" fill="#a89080" />
+                                    <path d="M30 220 Q200 200 370 220" stroke="#7a9a6a" stroke-width="15" fill="none" />
+                                    <ellipse cx="100" cy="215" rx="25" ry="15" fill="#6a8a5a" />
+                                    <ellipse cx="300" cy="215" rx="25" ry="15" fill="#6a8a5a" />
+                                    <ellipse cx="200" cy="210" rx="30" ry="18" fill="#5a7a4a" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="venue-info">
+                            <h3 class="venue-name">Villa Medicea di Artimino</h3>
+                            <p class="venue-address">Via di Papa Leone X, 28<br>Artimino, Florence</p>
+                            <p class="venue-date">September 10, 2027</p>
+                            <p class="venue-reception">Reception to follow</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Countdown Section -->
-        <section class="countdown-section">
-            <div class="container">
-                <h2 class="section-title">Countdown</h2>
-                <div class="countdown">
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="days">259</span>
-                        <span class="countdown-label">Days</span>
+            <!-- Menu Section -->
+            <section class="menu-section">
+                <div class="container">
+
+                    <h3 class="menu-title">Appetizers</h3>
+                    <div class="menu-item">
+                        <h4>Selection of Tuscan antipasti</h4>
+                        <p>Bruschetta, crostini & assorted cured meats</p>
                     </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="hours">14</span>
-                        <span class="countdown-label">Hours</span>
+
+                    <h3 class="menu-title">First Course</h3>
+                    <div class="menu-item">
+                        <h4>Black truffle risotto</h4>
+                        <p>with aged Parmesan cheese</p>
                     </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="minutes">12</span>
-                        <span class="countdown-label">Minutes</span>
+
+                    <h3 class="menu-title">Main Course</h3>
+                    <div class="menu-item">
+                        <h4>Grilled beef fillet</h4>
+                        <p>with red wine sauce and seasonal vegetables</p>
                     </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="seconds">13</span>
-                        <span class="countdown-label">Seconds</span>
+
+                    <h3 class="menu-title">Dessert</h3>
+                    <div class="menu-item">
+                        <h4>Wedding cake with mascarpone cream</h4>
+                        <p>and fresh berries</p>
                     </div>
+
+                    <p class="menu-wine">Estate wines</p>
+
                 </div>
-                <p class="countdown-subtitle">until the big day</p>
-            </div>
-        </section>
+            </section>
 
-        <!-- Venue Section -->
-        <section class="venue-section">
-            <div class="container">
-                <p class="section-intro">The celebration will take place at</p>
+            <!-- Dress Code Section -->
+            <section class="dresscode-section">
+                <div class="container">
+                    <h2 class="section-title">Dress Code</h2>
+                    <p class="dresscode-text">We invite you to dress elegantly and formally to celebrate this special day
+                        with us.</p>
+                    <div class="dresscode-type">
+                        <span class="dresscode-icon">✦</span>
+                        <span>Formal Attire</span>
+                    </div>
+                    <p class="dresscode-note">Please avoid wearing white</p>
+                </div>
+            </section>
 
-                <div class="venue-card">
-                    <div class="venue-illustration">
-                        <div class="villa-svg">
-                            <!-- SVG kept exactly the same -->
-                            <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="50" y="120" width="300" height="100" fill="#e8d5c4" stroke="#8b7355" stroke-width="2"/>
-                                <polygon points="40,120 200,50 360,120" fill="#c4a882" stroke="#8b7355" stroke-width="2"/>
-                                <rect x="80" y="150" width="40" height="50" fill="#6b5b4f" rx="2"/>
-                                <rect x="140" y="150" width="40" height="50" fill="#6b5b4f" rx="2"/>
-                                <rect x="220" y="150" width="40" height="50" fill="#6b5b4f" rx="2"/>
-                                <rect x="280" y="150" width="40" height="50" fill="#6b5b4f" rx="2"/>
-                                <rect x="170" y="170" width="60" height="50" fill="#8b7355" rx="2"/>
-                                <circle cx="185" cy="195" r="3" fill="#4a3f35"/>
-                                <rect x="60" y="200" width="280" height="10" fill="#a89080"/>
-                                <path d="M30 220 Q200 200 370 220" stroke="#7a9a6a" stroke-width="15" fill="none"/>
-                                <ellipse cx="100" cy="215" rx="25" ry="15" fill="#6a8a5a"/>
-                                <ellipse cx="300" cy="215" rx="25" ry="15" fill="#6a8a5a"/>
-                                <ellipse cx="200" cy="210" rx="30" ry="18" fill="#5a7a4a"/>
-                            </svg>
+            <!-- Wedding Registry Section -->
+            <section class="registry-section">
+                <div class="container">
+                    <h2 class="section-title">Wedding registry</h2>
+                    <h3 class="registry-subtitle">Gifts</h3>
+                    <p class="registry-text">Your presence is the best gift we could receive. However, if you wish to
+                        contribute to our new life together, you can do so via bank transfer.</p>
+                    <p class="registry-love">With all our love</p>
+
+                    <div class="bank-details">
+                        <h4>Bank details</h4>
+                        <div class="bank-row">
+                            <span class="bank-label">ACCOUNT HOLDER</span>
+                            <span class="bank-value">SAM & SOFIA</span>
+                        </div>
+                        <div class="bank-row">
+                            <span class="bank-label">IBAN</span>
+                            <span class="bank-value">ES00 0000 0000 0000 0000 0000</span>
+                        </div>
+                        <div class="bank-row">
+                            <span class="bank-label">REFERENCE</span>
+                            <span class="bank-value">Sam & Sofia Wedding</span>
                         </div>
                     </div>
-                    <div class="venue-info">
-                        <h3 class="venue-name">Villa Medicea di Artimino</h3>
-                        <p class="venue-address">Via di Papa Leone X, 28<br>Artimino, Florence</p>
-                        <p class="venue-date">September 10, 2027</p>
-                        <p class="venue-reception">Reception to follow</p>
-                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Menu Section -->
-        <section class="menu-section">
-            <div class="container">
+            <!-- Transport Section -->
+            <section class="transport-section">
+                <div class="container">
+                    <h2 class="section-title">How to get there</h2>
+                    <h3 class="transport-subtitle">Transport</h3>
+                    <p class="transport-text">We have organized buses from the center of Florence to the villa so you can
+                        enjoy the celebration without worries.</p>
 
-                <h3 class="menu-title">Appetizers</h3>
-                <div class="menu-item">
-                    <h4>Selection of Tuscan antipasti</h4>
-                    <p>Bruschetta, crostini & assorted cured meats</p>
-                </div>
-
-                <h3 class="menu-title">First Course</h3>
-                <div class="menu-item">
-                    <h4>Black truffle risotto</h4>
-                    <p>with aged Parmesan cheese</p>
-                </div>
-
-                <h3 class="menu-title">Main Course</h3>
-                <div class="menu-item">
-                    <h4>Grilled beef fillet</h4>
-                    <p>with red wine sauce and seasonal vegetables</p>
-                </div>
-
-                <h3 class="menu-title">Dessert</h3>
-                <div class="menu-item">
-                    <h4>Wedding cake with mascarpone cream</h4>
-                    <p>and fresh berries</p>
-                </div>
-
-                <p class="menu-wine">Estate wines</p>
-
-            </div>
-        </section>
-
-        <!-- Dress Code Section -->
-        <section class="dresscode-section">
-            <div class="container">
-                <h2 class="section-title">Dress Code</h2>
-                <p class="dresscode-text">We invite you to dress elegantly and formally to celebrate this special day with us.</p>
-                <div class="dresscode-type">
-                    <span class="dresscode-icon">✦</span>
-                    <span>Formal Attire</span>
-                </div>
-                <p class="dresscode-note">Please avoid wearing white</p>
-            </div>
-        </section>
-
-        <!-- Wedding Registry Section -->
-        <section class="registry-section">
-            <div class="container">
-                <h2 class="section-title">Wedding registry</h2>
-                <h3 class="registry-subtitle">Gifts</h3>
-                <p class="registry-text">Your presence is the best gift we could receive. However, if you wish to contribute to our new life together, you can do so via bank transfer.</p>
-                <p class="registry-love">With all our love</p>
-                
-                <div class="bank-details">
-                    <h4>Bank details</h4>
-                    <div class="bank-row">
-                        <span class="bank-label">ACCOUNT HOLDER</span>
-                        <span class="bank-value">SAM & SOFIA</span>
-                    </div>
-                    <div class="bank-row">
-                        <span class="bank-label">IBAN</span>
-                        <span class="bank-value">ES00 0000 0000 0000 0000 0000</span>
-                    </div>
-                    <div class="bank-row">
-                        <span class="bank-label">REFERENCE</span>
-                        <span class="bank-value">Sam & Sofia Wedding</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Transport Section -->
-        <section class="transport-section">
-            <div class="container">
-                <h2 class="section-title">How to get there</h2>
-                <h3 class="transport-subtitle">Transport</h3>
-                <p class="transport-text">We have organized buses from the center of Florence to the villa so you can enjoy the celebration without worries.</p>
-                
-                <div class="transport-details">
-                    <div class="transport-item">
-                        <h4>Bus departure</h4>
-                        <p class="transport-location">Piazza della Signoria</p>
-                        <p class="transport-time">16:00h</p>
-                    </div>
-                    <div class="transport-item">
-                        <h4>Return to Florence</h4>
-                        <p class="transport-time">02:00h</p>
-                    </div>
-                </div>
-                
-                <p class="transport-note">Please indicate in your RSVP if you need transport</p>
-                <p class="transport-custom">This form is fully customizable to your needs</p>
-            </div>
-        </section>
-
-        <!-- RSVP Section -->
-        <section class="rsvp-section">
-            <div class="container">
-                <h2 class="section-title">Confirm your attendance</h2>
-                
-                <form class="rsvp-form" id="rsvpForm">
-                    <div class="form-group">
-                        <label for="fullname">Full Name <span class="required">*</span></label>
-                        <input type="text" id="fullname" name="fullname" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email (optional)</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Will you attend? <span class="required">*</span></label>
-                        <div class="attendance-options">
-                            <button type="button" class="attendance-btn" data-value="yes">
-                                <span class="btn-icon">○</span>
-                                Yes, I'll be there!
-                            </button>
-                            <button type="button" class="attendance-btn" data-value="no">
-                                <span class="btn-icon">○</span>
-                                No, I can't make it
-                            </button>
+                    <div class="transport-details">
+                        <div class="transport-item">
+                            <h4>Bus departure</h4>
+                            <p class="transport-location">Piazza della Signoria</p>
+                            <p class="transport-time">16:00h</p>
                         </div>
-                        <input type="hidden" id="attendance" name="attendance" required>
+                        <div class="transport-item">
+                            <h4>Return to Florence</h4>
+                            <p class="transport-time">02:00h</p>
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message for the couple (optional)</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Confirm</button>
-                </form>
-            </div>
-        </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <h2 class="footer-title">♡</h2>
-                <p class="footer-names">Amber & Junaid</p>
-                <p class="footer-text">25 July 2026</p>
-            </div>
-        </footer>
-    </main>
+                    <p class="transport-note">Please indicate in your RSVP if you need transport</p>
+                    <p class="transport-custom">This form is fully customizable to your needs</p>
+                </div>
+            </section>
 
-    <script src="script.js"></script>
-</body>
+            <!-- RSVP Section -->
+            <section class="rsvp-section">
+                <div class="container">
+                    <h2 class="section-title">Confirm your attendance</h2>
+
+                    <form class="rsvp-form" id="rsvpForm">
+                        <div class="form-group">
+                            <label for="fullname">Full Name <span class="required">*</span></label>
+                            <input type="text" id="fullname" name="fullname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email (optional)</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Will you attend? <span class="required">*</span></label>
+                            <div class="attendance-options">
+                                <button type="button" class="attendance-btn" data-value="yes">
+                                    <span class="btn-icon">○</span>
+                                    Yes, I'll be there!
+                                </button>
+                                <button type="button" class="attendance-btn" data-value="no">
+                                    <span class="btn-icon">○</span>
+                                    No, I can't make it
+                                </button>
+                            </div>
+                            <input type="hidden" id="attendance" name="attendance" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message for the couple (optional)</label>
+                            <textarea id="message" name="message" rows="4"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Confirm</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <h2 class="footer-title">♡</h2>
+                    <p class="footer-names">Amber & Junaid</p>
+                    <p class="footer-text">25 July 2026</p>
+                </div>
+            </footer>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+
 </html>
