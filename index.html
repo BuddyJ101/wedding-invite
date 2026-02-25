@@ -25,11 +25,13 @@
         <div class="envelope-flap envelope-flap-top"></div>
         <div class="envelope-flap envelope-flap-bottom"></div>
         <div class="envelope-body"></div>
+
         <div class="envelope-text">
           <h2 class="seal-names">Amber & Junaid</h2>
           <p class="seal-click">Click to open</p>
         </div>
-        <div class="wax-seal" id="wax-seal">
+
+        <div class="wax-seal" id="wax-seal" role="button" aria-label="Open invitation" tabindex="0">
           <img src="images/wax-seal.png" alt="Wax Seal" />
         </div>
       </div>
@@ -44,13 +46,11 @@
             <span id="loader-text">Loading…</span>
           </div>
 
-          <!-- Absolute — out of flex flow, arch stays perfectly centered -->
           <div id="hero-text-top">
             <h1 class="couple-names">Amber & Junaid</h1>
             <p class="subtitle">are getting married!</p>
           </div>
 
-          <!-- Only flex child — always centered -->
           <div id="arch-wrap">
             <div id="arch-clip">
               <canvas id="frame-canvas"></canvas>
@@ -59,7 +59,6 @@
             <div id="arch-ring"></div>
           </div>
 
-          <!-- Absolute — out of flex flow -->
           <div id="hero-text-bottom">
             <p class="hero-scroll-hint">Scroll to explore</p>
           </div>
@@ -71,13 +70,11 @@
         <h2 class="section-title">DEAR FAMILY<br />AND FRIENDS</h2>
         <div class="invitation-text">
           <p>
-            This winter, a very special and joyful event is taking place — our
-            wedding.
+            This winter, a very special and joyful event is taking place — our wedding.
           </p>
           <p>
-            We cannot imagine this day without the people closest to us. We
-            would be honored for you to join us and share in this wonderful
-            celebration.
+            We cannot imagine this day without the people closest to us. We would be honored
+            for you to join us and share in this wonderful celebration.
           </p>
         </div>
       </section>
@@ -85,9 +82,7 @@
       <!-- Scratch Cards Section -->
       <section class="scratch-section" id="scratch-section">
         <div class="container">
-          <p class="scratch-instruction">
-            Scratch all three circles to continue
-          </p>
+          <p class="scratch-instruction">Scratch all three circles to continue</p>
           <h2 class="section-title reveal-text">Reveal</h2>
           <p class="scratch-subtitle">Scratch to discover the date</p>
 
@@ -98,12 +93,14 @@
                 <span class="reveal-number">25</span>
               </div>
             </div>
+
             <div class="scratch-card" data-value="July">
               <canvas class="scratch-canvas"></canvas>
               <div class="scratch-reveal">
                 <span class="reveal-text-month">July</span>
               </div>
             </div>
+
             <div class="scratch-card" data-value="2026">
               <canvas class="scratch-canvas"></canvas>
               <div class="scratch-reveal">
@@ -118,24 +115,26 @@
       <section class="countdown-section">
         <div class="container">
           <h2 class="section-title">Countdown</h2>
+
           <div class="countdown">
             <div class="countdown-item">
-              <span class="countdown-number" id="days">259</span>
+              <span class="countdown-number" id="days">0</span>
               <span class="countdown-label">Days</span>
             </div>
             <div class="countdown-item">
-              <span class="countdown-number" id="hours">14</span>
+              <span class="countdown-number" id="hours">00</span>
               <span class="countdown-label">Hours</span>
             </div>
             <div class="countdown-item">
-              <span class="countdown-number" id="minutes">12</span>
+              <span class="countdown-number" id="minutes">00</span>
               <span class="countdown-label">Minutes</span>
             </div>
             <div class="countdown-item">
-              <span class="countdown-number" id="seconds">13</span>
+              <span class="countdown-number" id="seconds">00</span>
               <span class="countdown-label">Seconds</span>
             </div>
           </div>
+
           <p class="countdown-subtitle">until the big day</p>
         </div>
       </section>
@@ -148,22 +147,22 @@
               <span class="section-tag">The Venue</span>
               <h2 class="section-title">Palm Villa</h2>
               <p class="venue-description">
-                In the heart of Port Elizabeth, Palm Villa is where our next
-                chapter begins. Surrounded by the warmth of the Eastern Cape and
-                the people we love most, it is the perfect place to say “I do”
-                and celebrate the start of our forever.
+                In the heart of Port Elizabeth, Palm Villa is where our next chapter begins.
+                Surrounded by the warmth of the Eastern Cape and the people we love most,
+                it is the perfect place to say “I do” and celebrate the start of our forever.
               </p>
+
               <div class="venue-details">
                 <div class="detail-item">
                   <span class="detail-icon">📍</span>
                   <div class="detail-text">
                     <span class="detail-label">Address</span>
-                    <span class="detail-value"
-                      >Plot, NR.27 Draaifontein Rd, Greenbushes, Port
-                      Elizabeth</span
-                    >
+                    <span class="detail-value">
+                      Plot, NR.27 Draaifontein Rd, Greenbushes, Port Elizabeth
+                    </span>
                   </div>
                 </div>
+
                 <div class="detail-item">
                   <span class="detail-icon">🕐</span>
                   <div class="detail-text">
@@ -172,16 +171,19 @@
                   </div>
                 </div>
               </div>
+
               <a
                 href="https://www.google.com/maps?q=Palm+Villa+Wedding+and+Conference+Venue+Port+Elizabeth"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="btn btn-primary"
               >
                 Directions
               </a>
             </div>
+
             <div class="venue-image">
-              <img src="images/venue.png" alt="Palm Villa - Chappel" />
+              <img src="images/venue.png" alt="Palm Villa - Chapel" />
             </div>
           </div>
         </div>
@@ -198,17 +200,7 @@
 
             <div class="location-card">
               <div class="location-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
@@ -218,21 +210,10 @@
 
               <div class="location-info">
                 <p class="location-name">Palm Villa</p>
-                <p class="location-address">
-                  Plot, NR.27 Draaifontein Rd, Greenbushes
-                </p>
+                <p class="location-address">Plot, NR.27 Draaifontein Rd, Greenbushes</p>
+
                 <p class="location-time">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
                   </svg>
@@ -241,10 +222,7 @@
               </div>
 
               <div class="location-image">
-                <img
-                  src="images/venue.png"
-                  alt="Finca Biniagual - Aerial view"
-                />
+                <img src="images/venue.png" alt="Palm Villa - Venue view" />
                 <div class="image-overlay"></div>
               </div>
 
@@ -258,8 +236,7 @@
                   referrerpolicy="no-referrer-when-downgrade"
                   title="Map of Palm Villa"
                   src="https://www.google.com/maps?q=Palm+Villa+Wedding+and+Conference+Venue+Port+Elizabeth&output=embed"
-                >
-                </iframe>
+                ></iframe>
               </div>
 
               <div class="location-buttons">
@@ -269,17 +246,7 @@
                   rel="noopener noreferrer"
                   class="btn btn-outline"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
@@ -287,17 +254,7 @@
                 </a>
 
                 <a href="#" class="btn btn-outline" id="addToCalendar">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
                     <line x1="16" x2="16" y1="2" y2="6" />
                     <line x1="8" x2="8" y1="2" y2="6" />
@@ -319,24 +276,14 @@
             <p class="program-subtitle">What we have planned for you</p>
           </div>
 
-          <!-- Desktop Timeline -->
           <div class="timeline-desktop">
             <div class="timeline-line"></div>
+
             <div class="timeline-grid">
               <div class="timeline-item">
                 <span class="timeline-time">15:00</span>
                 <div class="timeline-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" />
                     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -350,23 +297,11 @@
               <div class="timeline-item">
                 <span class="timeline-time">TBD</span>
                 <div class="timeline-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M2 12h20" />
                     <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
                     <path d="m4 8 16-4" />
-                    <path
-                      d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"
-                    />
+                    <path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8" />
                   </svg>
                 </div>
                 <h4 class="timeline-title">Ceremony</h4>
@@ -376,42 +311,20 @@
               <div class="timeline-item">
                 <span class="timeline-time">TBD</span>
                 <div class="timeline-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M8 21h8a2 2 0 0 0 2-2v-6H6v6a2 2 0 0 0 2 2Z" />
                     <path d="M12 13V3" />
                     <path d="M6 13a6 6 0 0 1 12 0" />
                   </svg>
                 </div>
                 <h4 class="timeline-title">Cocktail hour</h4>
-                <p class="timeline-desc">
-                  Appetizers and drinks in the gardens
-                </p>
+                <p class="timeline-desc">Appetizers and drinks in the gardens</p>
               </div>
 
               <div class="timeline-item">
                 <span class="timeline-time">TBD</span>
                 <div class="timeline-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="9" y="2" width="6" height="11" rx="3" />
                     <path d="M5 10v1a7 7 0 0 0 14 0v-1" />
                     <line x1="12" y1="18" x2="12" y2="22" />
@@ -425,22 +338,10 @@
               <div class="timeline-item">
                 <span class="timeline-time">TBD</span>
                 <div class="timeline-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
                     <path d="M7 2v20" />
-                    <path
-                      d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"
-                    />
+                    <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
                   </svg>
                 </div>
                 <h4 class="timeline-title">Dinner</h4>
@@ -450,17 +351,7 @@
               <div class="timeline-item">
                 <span class="timeline-time">TBD</span>
                 <div class="timeline-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 18V5l12-2v13" />
                     <circle cx="6" cy="18" r="3" />
                     <circle cx="18" cy="16" r="3" />
@@ -473,17 +364,7 @@
               <div class="timeline-item">
                 <span class="timeline-time">TBD</span>
                 <div class="timeline-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 6 6 18" />
                     <path d="m6 6 12 12" />
                   </svg>
@@ -493,6 +374,7 @@
               </div>
             </div>
           </div>
+        </div>
       </section>
 
       <!-- Dress Code Section -->
@@ -500,8 +382,7 @@
         <div class="container">
           <h2 class="section-title">Dress Code</h2>
           <p class="dresscode-text">
-            We invite you to dress elegantly and formally to celebrate this
-            special day with us.
+            We invite you to dress elegantly and formally to celebrate this special day with us.
           </p>
           <div class="dresscode-type">
             <span class="dresscode-icon">✦</span>
@@ -517,11 +398,10 @@
           <h2 class="section-title">Wedding registry</h2>
           <h3 class="registry-subtitle">Gifts</h3>
           <p class="registry-text">
-            Your presence at our wedding is the greatest gift we could ask for.
-            For those who wish to give a gift, our registry can be found below.
+            Your presence at our wedding is the greatest gift we could ask for. For those who wish
+            to give a gift, our registry can be found below.
           </p>
 
-          <!-- TODO update registry link -->
           <a
             href="https://myregistry.com/wedding-registry/junaid-brooks-and-amber-de-beer-gqeberha-ec/5299741/giftlist?panel=WelcomeMessage"
             target="_blank"
@@ -530,6 +410,7 @@
           >
             View Our Registry
           </a>
+
           <p class="registry-love">
             <br /><br />With all our love,<br />Amber & Junaid
           </p>
@@ -543,9 +424,7 @@
 
           <form class="rsvp-form" id="rsvpForm">
             <div class="form-group">
-              <label for="fullname"
-                >Full Name <span class="required">*</span></label
-              >
+              <label for="fullname">Full Name <span class="required">*</span></label>
               <input type="text" id="fullname" name="fullname" required />
             </div>
 
@@ -590,6 +469,5 @@
     </main>
 
     <script src="script.js"></script>
-    <script src="debug.js"></script>
   </body>
 </html>
