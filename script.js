@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             envelopeOverlay.classList.add('faded'); // fade right when done
 
+            // Recalc hero heights now that content is visible & address bar may have shifted
+            requestAnimationFrame(() => { if (window._heroScrubResize) window._heroScrubResize(); });
+
             if (mainContent) {
                 mainContent.classList.remove('hidden');
                 requestAnimationFrame(() => mainContent.classList.add('visible'));
@@ -351,7 +354,7 @@ function showNotification(message, type = 'info') {
 
 // Scroll Animations
 function initScrollAnimations() {
-    const sections = document.querySelectorAll('section:not(.hero)');
+    const sections = document.querySelectorAll('section:not(#hero)');
 
     const observerOptions = {
         root: null,
@@ -400,135 +403,126 @@ function initAddToCalendar() {
 }
 
 function initHeroScrub() {
-    const section = document.getElementById("hero-scrub");
-    const video = document.getElementById("hero-video");
-    const canvas = document.getElementById("hero-canvas");
-    const unlock = document.getElementById("hero-unlock");
+    const FRAMES_DIR = './frames/';
+    const FRAME_PREFIX = 'frame';
+    const FRAME_DIGITS = 4;
+    const FRAME_EXT = '.jpg';
+    const TOTAL_FRAMES = 121;
 
-    if (!section || !video || !canvas) return;
+    const driver = document.getElementById('scroll-driver');
+    const hero = document.getElementById('hero');
+    const canvas = document.getElementById('frame-canvas');
+    const loaderEl = document.getElementById('loader');
+    const loaderBar = document.getElementById('loader-bar');
 
-    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!driver || !hero || !canvas) return;
 
-    let duration = 1;
-    let targetTime = 0;
-    let currentTime = 0;
-    let rafId = null;
+    const ctx = canvas.getContext('2d');
+    let bitmaps = [];
+    let frameCount = 0;
+    let currentFrame = -1;
 
-    const clamp01 = (x) => Math.max(0, Math.min(1, x));
-
-    function resize() {
-        const dpr = Math.max(1, window.devicePixelRatio || 1);
-        canvas.width = Math.floor(canvas.clientWidth * dpr);
-        canvas.height = Math.floor(canvas.clientHeight * dpr);
+    // ── Set pixel heights from REAL innerHeight ────────────────────────────
+    // dvh/vh are unreliable on mobile — they get computed while main-content
+    // is display:none or while the address bar is still visible (634px).
+    // We override with explicit px values using the live innerHeight instead.
+    function setHeights() {
+        const h = window.innerHeight;
+        driver.style.height = (h * 5) + 'px'; // 4x scrub range + 1x for clean exit
+        hero.style.height = h + 'px';
     }
 
-    // Draw video into canvas using "cover" scaling (like object-fit: cover)
-    function draw() {
-        if (video.readyState < 2) return;
-
-        const cw = canvas.width, ch = canvas.height;
-        const vw = video.videoWidth, vh = video.videoHeight;
-        if (!vw || !vh) return;
-
-        const scale = Math.max(cw / vw, ch / vh);
-        const sw = vw * scale;
-        const sh = vh * scale;
-        const dx = (cw - sw) / 2;
-        const dy = (ch - sh) / 2;
-
-        ctx.clearRect(0, 0, cw, ch);
-        ctx.drawImage(video, dx, dy, sw, sh);
+    // ── Frame path ─────────────────────────────────────────────────────────
+    function framePath(i) {
+        return `${FRAMES_DIR}${FRAME_PREFIX}${String(i).padStart(FRAME_DIGITS, '0')}${FRAME_EXT}`;
     }
 
-    function sectionProgress() {
-        const rect = section.getBoundingClientRect();
-        const viewport = window.innerHeight;
-        const total = section.offsetHeight - viewport;
-        const scrolled = -rect.top;
-        return clamp01(scrolled / total);
-    }
-
-    function updateTargetFromScroll() {
-        const p = sectionProgress();
-        targetTime = p * duration;
-    }
-
-    let seeking = false;
-
-    function tick() {
-        currentTime += (targetTime - currentTime) * 0.18;
-
-        const diff = Math.abs(video.currentTime - currentTime);
-
-        if (!seeking && diff > 0.02) {
-            seeking = true;
-            video.currentTime = currentTime;
-        } else {
-            draw();
+    // ── Draw a frame (cover-fit) ───────────────────────────────────────────
+    function drawFrame(index) {
+        const bmp = bitmaps[index];
+        if (!bmp) return;
+        const cw = canvas.offsetWidth;
+        const ch = canvas.offsetHeight;
+        if (canvas.width !== cw || canvas.height !== ch) {
+            canvas.width = cw;
+            canvas.height = ch;
         }
-
-        rafId = requestAnimationFrame(tick);
+        const scale = Math.max(cw / bmp.width, ch / bmp.height);
+        const sw = bmp.width * scale;
+        const sh = bmp.height * scale;
+        ctx.drawImage(bmp, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
     }
 
-    video.addEventListener("seeked", () => {
-        seeking = false;
-        draw();
-    });
-
-    async function primeVideo() {
-        // Some mobile browsers require interaction to allow frame extraction
-        try {
-            video.muted = true;
-            video.playsInline = true;
-            await video.play();
-            video.pause();
-            if (unlock) unlock.style.display = "none";
-            return true;
-        } catch (e) {
-            if (unlock) unlock.style.display = "grid";
-            return false;
+    // ── Scroll handler ─────────────────────────────────────────────────────
+    function onScroll() {
+        if (!frameCount) return;
+        const scrolled = window.scrollY - driver.offsetTop;
+        const range = driver.offsetHeight - window.innerHeight;
+        const progress = Math.min(Math.max(scrolled / range, 0), 1);
+        const frame = Math.min(Math.round(progress * (frameCount - 1)), frameCount - 1);
+        if (frame !== currentFrame) {
+            currentFrame = frame;
+            drawFrame(frame);
+            const bar = document.getElementById('progress-bar');
+            if (bar) bar.style.width = (progress * 100) + '%';
         }
+        const hint = document.getElementById('scroll-hint');
+        if (hint) hint.style.opacity = window.scrollY > 40 ? '0' : '1';
     }
 
-    if (unlock) {
-        unlock.addEventListener("click", async () => {
-            const ok = await primeVideo();
-            if (ok) draw();
-        });
-    }
-
-    window.addEventListener("resize", () => {
-        resize();
-        draw();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+        setHeights();
+        canvas.width = 0;
+        if (currentFrame >= 0) drawFrame(currentFrame);
+        onScroll();
     }, { passive: true });
 
-    window.addEventListener("scroll", updateTargetFromScroll, { passive: true });
-
-    video.addEventListener("loadedmetadata", async () => {
-        duration = video.duration || 1;
-        resize();
-
-        // Start at first frame
-        video.currentTime = 0;
-
-        // Try unlock
-        await primeVideo();
-
-        updateTargetFromScroll();
-        draw();
-
-        if (rafId) cancelAnimationFrame(rafId);
-        tick();
-    });
-
-    // If cached metadata
-    if (video.readyState >= 1) {
-        duration = video.duration || 1;
-        resize();
-        updateTargetFromScroll();
-        draw();
-        if (!rafId) tick();
+    // ── Load frames ────────────────────────────────────────────────────────
+    async function loadFrames(total) {
+        frameCount = total;
+        bitmaps = new Array(total);
+        const BATCH = 12;
+        let loaded = 0;
+        for (let s = 1; s <= total; s += BATCH) {
+            const e = Math.min(s + BATCH - 1, total);
+            const batch = [];
+            for (let i = s; i <= e; i++) {
+                const idx = i - 1;
+                batch.push(
+                    fetch(framePath(i))
+                        .then(r => r.blob())
+                        .then(blob => createImageBitmap(blob))
+                        .then(bmp => {
+                            bitmaps[idx] = bmp;
+                            loaded++;
+                            if (loaderBar) loaderBar.style.width = ((loaded / total) * 100) + '%';
+                        })
+                );
+            }
+            await Promise.all(batch);
+        }
     }
+
+    // ── Boot ───────────────────────────────────────────────────────────────
+    (async () => {
+        try {
+            // Set heights immediately using current innerHeight
+            setHeights();
+            await loadFrames(TOTAL_FRAMES);
+            drawFrame(0);
+            onScroll();
+            if (loaderEl) {
+                loaderEl.classList.add('hidden');
+                setTimeout(() => loaderEl.remove(), 600);
+            }
+        } catch (e) {
+            console.error('Hero scrub failed:', e);
+        }
+    })();
+
+    // Expose so the envelope opener can trigger a height recalc
+    window._heroScrubResize = () => { setHeights(); onScroll(); };
 }
 
 // Smooth scroll for anchor links
