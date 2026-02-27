@@ -27,7 +27,7 @@
         <div class="envelope-body"></div>
 
         <div class="envelope-text">
-          <h2 class="seal-names">Amber & Junaid</h2>
+          <h2 class="seal-names"></h2>
           <p class="seal-click">Click to open</p>
         </div>
 
@@ -418,45 +418,91 @@
       </section>
 
       <!-- RSVP Section -->
-      <section class="rsvp-section">
-        <div class="container">
-          <h2 class="section-title">Confirm your attendance</h2>
+<section class="rsvp-section" id="rsvp">
+  <div class="container">
+    <h2 class="section-title">Confirm your attendance</h2>
 
-          <form class="rsvp-form" id="rsvpForm">
-            <div class="form-group">
-              <label for="fullname">Full Name <span class="required">*</span></label>
-              <input type="text" id="fullname" name="fullname" required />
-            </div>
+    <!-- Status always visible (success / error / info) -->
+    <div id="rsvpStatus" class="rsvp-status" aria-live="polite"></div>
 
-            <div class="form-group">
-              <label for="email">Email (optional)</label>
-              <input type="email" id="email" name="email" />
-            </div>
+    <!-- Everything below gets hidden after submit / locked / invalid invite -->
+    <div id="rsvpBody">
+      <!-- Meta / status -->
+      <div class="rsvp-meta" id="rsvpMeta">
+        <p class="rsvp-meta-line">
+          <strong>Invite:</strong> <span id="rsvpDisplayName">—</span>
+        </p>
+        <p class="rsvp-meta-line">
+          <strong>RSVP by:</strong> <span id="rsvpDeadline">—</span>
+        </p>
+      </div>
 
-            <div class="form-group">
-              <label>Will you attend? <span class="required">*</span></label>
-              <div class="attendance-options">
-                <button type="button" class="attendance-btn" data-value="yes">
-                  <span class="btn-icon">○</span>
-                  Yes, I'll be there!
-                </button>
-                <button type="button" class="attendance-btn" data-value="no">
-                  <span class="btn-icon">○</span>
-                  No, I can't make it
-                </button>
-              </div>
-              <input type="hidden" id="attendance" name="attendance" required />
-            </div>
-
-            <div class="form-group">
-              <label for="message">Message for the couple (optional)</label>
-              <textarea id="message" name="message" rows="4"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Confirm</button>
-          </form>
+      <form class="rsvp-form" id="rsvpForm" novalidate>
+        <!-- Read-only name (from backend based on URL inviteKey) -->
+        <div class="form-group">
+          <label for="displayName">Full Name</label>
+          <input type="text" id="displayName" name="displayName" readonly />
         </div>
-      </section>
+
+        <!-- Attendance -->
+        <div class="form-group">
+          <label>Will you attend? <span class="required">*</span></label>
+
+          <div class="attendance-options">
+            <button type="button" class="attendance-btn" data-value="yes">
+              <span class="btn-icon">○</span>
+              Yes, I'll be there!
+            </button>
+
+            <button type="button" class="attendance-btn" data-value="no">
+              <span class="btn-icon">○</span>
+              No, I can't make it
+            </button>
+          </div>
+
+          <input type="hidden" id="attendance" name="attendance" required />
+        </div>
+
+        <!-- Guest controls (only show when attending YES) -->
+        <div id="guestControls" class="rsvp-guest-controls hidden">
+          <div class="form-group">
+            <label>How many will be attending? <span class="required">*</span></label>
+
+            <div class="guest-stepper">
+              <button type="button" class="stepper-btn" id="guestMinus">−</button>
+              <div class="stepper-value">
+                <span id="guestCountDisplay">1</span>
+                <span class="stepper-sub">max <span id="guestMaxDisplay">—</span></span>
+              </div>
+              <button type="button" class="stepper-btn" id="guestPlus">+</button>
+            </div>
+
+            <input type="hidden" id="guestCount" name="guestCount" value="1" />
+          </div>
+
+          <div class="form-group">
+            <label>Who will be attending? <span class="required">*</span></label>
+            <div id="namedGuestsList" class="guest-checklist"></div>
+            <p class="rsvp-hint" id="guestPickHint"></p>
+          </div>
+
+          <div class="form-group hidden" id="extraNamesGroup">
+            <label>Additional guest(s)</label>
+            <div id="extraSlotsList" class="guest-checklist"></div>
+            <p class="rsvp-hint">Tick a slot and type the guest’s name.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message for the couple (optional)</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="rsvpSubmitBtn">Confirm</button>
+      </form>
+    </div>
+  </div>
+</section>
 
       <!-- Footer -->
       <footer class="footer">

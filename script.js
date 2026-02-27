@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initSmoothAnchors();
 });
 
+
+// ===== RSVP BACKEND CONFIG =====
+const RSVP_API_BASE = "https://script.google.com/macros/s/AKfycbyPe85jGsLQ2yS-BxHCtofzTgHJAwgUOibTXHo2zf7nEqDuKLOXOSrAh31TgiVs43Jd/exec";
+
 /* =========================
    Envelope Overlay
 ========================= */
@@ -253,60 +257,472 @@ function initCountdown() {
 /* =========================
    RSVP Form
 ========================= */
-function initRSVPForm() {
-  const form = document.getElementById("rsvpForm");
-  if (!form) return;
+async function initRSVPForm() {
+    const form = document.getElementById("rsvpForm");
+    if (!form) return;
 
-  const attendanceBtns = form.querySelectorAll(".attendance-btn");
-  const attendanceInput = document.getElementById("attendance");
-  if (!attendanceInput) return;
+    // ===== DOM =====
+    const params = new URLSearchParams(window.location.search);
 
-  attendanceBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      attendanceBtns.forEach((b) => {
-        b.classList.remove("selected");
-        const icon = b.querySelector(".btn-icon");
-        if (icon) icon.textContent = "○";
-      });
+    const inviteKey = (params.get("invite") || "")
+        .trim()
+        .toLowerCase();
 
-      btn.classList.add("selected");
-      attendanceInput.value = btn.dataset.value || "";
+    const urlName = params.get("name")
+        ? decodeURIComponent(params.get("name"))
+        : "";
 
-      const icon = btn.querySelector(".btn-icon");
-      if (icon) icon.textContent = "●";
-    });
-  });
+    if (urlName) {
+        setSealNames(urlName);
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+        const displayNameEl = document.getElementById("displayName");
+        const rsvpDisplayNameEl = document.getElementById("rsvpDisplayName");
 
-    const data = Object.fromEntries(new FormData(form).entries());
-
-    if (!data.fullname || !data.attendance) {
-      showNotification("Please fill in all required fields", "error");
-      return;
+        if (displayNameEl) displayNameEl.value = urlName;
+        if (rsvpDisplayNameEl) rsvpDisplayNameEl.textContent = urlName;
     }
 
-    const submitBtn = form.querySelector(".submit-btn");
-    if (!submitBtn) return;
+    const rsvpBody = document.getElementById("rsvpBody");
 
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = "Sending...";
-    submitBtn.disabled = true;
+    const displayNameEl = document.getElementById("displayName");
+    const rsvpDisplayNameEl = document.getElementById("rsvpDisplayName");
+    const rsvpDeadlineEl = document.getElementById("rsvpDeadline");
+    const statusEl = document.getElementById("rsvpStatus");
 
-    setTimeout(() => {
-      showNotification("Thank you! Your RSVP has been confirmed.", "success");
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
+    const attendanceBtns = form.querySelectorAll(".attendance-btn");
+    const attendanceInput = document.getElementById("attendance");
 
-      form.reset();
-      attendanceBtns.forEach((b) => {
-        b.classList.remove("selected");
-        const icon = b.querySelector(".btn-icon");
-        if (icon) icon.textContent = "○";
-      });
-    }, 1200);
-  });
+    const guestControls = document.getElementById("guestControls");
+    const guestMinus = document.getElementById("guestMinus");
+    const guestPlus = document.getElementById("guestPlus");
+    const guestCountInput = document.getElementById("guestCount");
+    const guestCountDisplay = document.getElementById("guestCountDisplay");
+    const guestMaxDisplay = document.getElementById("guestMaxDisplay");
+
+    const namedGuestsList = document.getElementById("namedGuestsList");
+    const guestPickHint = document.getElementById("guestPickHint");
+
+    const extraNamesGroup = document.getElementById("extraNamesGroup");
+    const extraSlotsList = document.getElementById("extraSlotsList");
+
+    const messageEl = document.getElementById("message");
+    const submitBtn = document.getElementById("rsvpSubmitBtn");
+
+    // ===== UI helpers =====
+    function hideRsvpBody() {
+        if (rsvpBody) rsvpBody.classList.add("hidden");
+    }
+
+    function showRsvpBody() {
+        if (rsvpBody) rsvpBody.classList.remove("hidden");
+    }
+
+    function setSealNames(text) {
+        const el = document.querySelector(".seal-names");
+        if (!el) return;
+        el.textContent = text || "";
+    }
+
+    function setStatus(text, type = "info") {
+        if (!statusEl) return;
+        statusEl.textContent = text || "";
+        statusEl.className = `rsvp-status rsvp-status-${type}`;
+        // If empty, hide status box completely
+        if (!text) statusEl.classList.add("hidden");
+        else statusEl.classList.remove("hidden");
+    }
+
+    function disableForm(disabled) {
+        form.querySelectorAll("input, textarea, button").forEach((el) => {
+            el.disabled = !!disabled;
+        });
+    }
+
+    function normalizeName(s) {
+        return (s || "").trim().replace(/\s+/g, " ");
+    }
+
+    function formatDeadline(yyyyMmDd) {
+        if (!yyyyMmDd) return "—";
+        const [y, m, d] = yyyyMmDd.split("-").map(Number);
+        const dt = new Date(y, m - 1, d);
+        return dt.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    }
+
+    function showToast(message, type = "info") {
+        if (typeof showNotification === "function") showNotification(message, type);
+        else alert(message);
+    }
+
+    // ===== State =====
+    let locked = false;
+    let closed = false;
+    let lastExtraSlotsRendered = -1;
+
+    let maxGuests = 1;
+    let namedGuests = [];
+    let allowUnnamed = false;
+    let notAllowedExtras = [];
+
+    // ===== Rendering =====
+    function renderNamedGuests() {
+        namedGuestsList.innerHTML = "";
+
+        if (!namedGuests.length) {
+            namedGuestsList.innerHTML = `<p class="rsvp-hint">No named guests found for this invite.</p>`;
+            return;
+        }
+
+        namedGuests.forEach((name) => {
+            const id = "guest_" + name.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+            const row = document.createElement("label");
+            row.className = "guest-check";
+            row.innerHTML = `
+        <input type="checkbox" value="${name}" id="${id}">
+        <span>${name}</span>
+      `;
+            row.querySelector("input").addEventListener("change", updateGuestHint);
+            namedGuestsList.appendChild(row);
+        });
+    }
+
+    // Render ONLY the number of extra slots needed for CURRENT guestCount,
+    // and ONLY if guestCount > namedGuests.length.
+    function renderExtraSlotsForCurrentCount() {
+        if (!allowUnnamed) {
+            extraNamesGroup.classList.add("hidden");
+            extraSlotsList.innerHTML = "";
+            lastExtraSlotsRendered = -1;
+            return;
+        }
+
+        const target = Number(guestCountInput.value || "1");
+        const needExtras = Math.max(0, target - namedGuests.length);
+
+        if (needExtras <= 0) {
+            extraNamesGroup.classList.add("hidden");
+            extraSlotsList.innerHTML = "";
+            lastExtraSlotsRendered = 0;
+            return;
+        }
+
+        // Only rebuild when slot count changes
+        if (needExtras === lastExtraSlotsRendered) return;
+        lastExtraSlotsRendered = needExtras;
+
+        extraNamesGroup.classList.remove("hidden");
+        extraSlotsList.innerHTML = "";
+
+        for (let i = 1; i <= needExtras; i++) {
+            const row = document.createElement("div");
+            row.className = "guest-check extra-guest-row";
+            row.innerHTML = `
+        <label class="extra-guest-left">
+          <input type="checkbox" class="extra-slot-check" data-slot="${i}">
+        </label>
+        <input type="text" class="extra-slot-name" placeholder="Type name" disabled />
+      `;
+
+            const cb = row.querySelector(".extra-slot-check");
+            const input = row.querySelector(".extra-slot-name");
+
+            cb.addEventListener("change", () => {
+                input.disabled = !cb.checked;
+                if (!cb.checked) input.value = "";
+                updateGuestHint();
+            });
+
+            // Update hint while typing (nice UX)
+            input.addEventListener("input", updateGuestHint);
+
+            extraSlotsList.appendChild(row);
+        }
+    }
+
+    function getSelectedExtraNames() {
+        if (!allowUnnamed) return [];
+        const rows = Array.from(extraSlotsList.querySelectorAll(".extra-guest-row"));
+        const names = [];
+
+        for (const row of rows) {
+            const cb = row.querySelector(".extra-slot-check");
+            const input = row.querySelector(".extra-slot-name");
+            if (!cb.checked) continue;
+
+            const nm = normalizeName(input.value);
+            if (!nm) continue; // only counts if typed
+            names.push(nm);
+        }
+        return names;
+    }
+
+    function updateGuestHint() {
+        const target = Number(guestCountInput.value || "1");
+        const checkedNamed = Array.from(
+            namedGuestsList.querySelectorAll('input[type="checkbox"]:checked')
+        ).length;
+
+        const extras = getSelectedExtraNames();
+        const total = checkedNamed + extras.length;
+
+        guestPickHint.textContent =
+            `Selected: ${total} / ${target} (named: ${checkedNamed}${allowUnnamed ? `, extra: ${extras.length}` : ""})`;
+    }
+
+    function clearExtrasUI() {
+        extraSlotsList.innerHTML = "";
+        extraNamesGroup.classList.add("hidden");
+        lastExtraSlotsRendered = -1;
+    }
+
+    function setGuestCount(n) {
+        const prev = Number(guestCountInput.value || "1");
+        const clamped = Math.max(1, Math.min(maxGuests, n));
+
+        guestCountInput.value = String(clamped);
+        guestCountDisplay.textContent = String(clamped);
+
+        // Rule: if count decreases, clear all selections (named + extras)
+        if (clamped < prev) {
+            namedGuestsList.querySelectorAll('input[type="checkbox"]').forEach((cb) => (cb.checked = false));
+            clearExtrasUI();
+        }
+
+        // If set to maxGuests, auto-select all named guests (user can unselect)
+        if (clamped === maxGuests) {
+            namedGuestsList.querySelectorAll('input[type="checkbox"]').forEach((cb) => (cb.checked = true));
+        }
+
+        renderExtraSlotsForCurrentCount();
+        updateGuestHint();
+
+        guestMinus.disabled = clamped <= 1;
+        guestPlus.disabled = clamped >= maxGuests;
+    }
+
+    function setAttendance(value) {
+        attendanceBtns.forEach((b) => {
+            b.classList.remove("selected");
+            const icon = b.querySelector(".btn-icon");
+            if (icon) icon.textContent = "○";
+        });
+
+        const btn = Array.from(attendanceBtns).find((b) => b.dataset.value === value);
+        if (btn) {
+            btn.classList.add("selected");
+            const icon = btn.querySelector(".btn-icon");
+            if (icon) icon.textContent = "●";
+        }
+
+        attendanceInput.value = value;
+
+        if (value === "yes") {
+            guestControls.classList.remove("hidden");
+            setGuestCount(Number(guestCountInput.value || "1"));
+        } else {
+            guestControls.classList.add("hidden");
+            clearExtrasUI();
+        }
+    }
+
+    // ===== Wire events =====
+    attendanceBtns.forEach((btn) =>
+        btn.addEventListener("click", () => setAttendance(btn.dataset.value))
+    );
+    guestMinus.addEventListener("click", () =>
+        setGuestCount(Number(guestCountInput.value || "1") - 1)
+    );
+    guestPlus.addEventListener("click", () =>
+        setGuestCount(Number(guestCountInput.value || "1") + 1)
+    );
+
+    // ===== No invite key =====
+    if (!inviteKey) {
+        setSealNames("");
+        if (rsvpDisplayNameEl) rsvpDisplayNameEl.textContent = "—";
+        if (displayNameEl) displayNameEl.value = "";
+        if (rsvpDeadlineEl) rsvpDeadlineEl.textContent = "—";
+        setStatus("Please use the RSVP link you were sent. If you need help, contact Amber or Junaid.", "error");
+        hideRsvpBody();
+        disableForm(true);
+        return;
+    }
+
+    // ===== Load backend =====
+    setStatus("Loading your invite…", "info");
+    hideRsvpBody();       // hide until we know it's valid/open
+    disableForm(true);
+
+    let payload;
+    try {
+        const res = await fetch(`${RSVP_API_BASE}?invite=${encodeURIComponent(inviteKey)}`, { method: "GET" });
+        payload = await res.json();
+    } catch (err) {
+        setStatus("RSVP system is temporarily unavailable. Please try again later.", "error");
+        hideRsvpBody();
+        disableForm(true);
+        return;
+    }
+
+    const deadlineStr = payload?.deadline?.date || null;
+    if (rsvpDeadlineEl) rsvpDeadlineEl.textContent = formatDeadline(deadlineStr);
+
+    // ===== Invite not found / invalid =====
+    if (!payload.ok) {
+        setSealNames("");
+        if (rsvpDisplayNameEl) rsvpDisplayNameEl.textContent = "—";
+        if (displayNameEl) displayNameEl.value = "";
+        setStatus(payload.message || "Invite not found. Please use the RSVP link you were sent.", "error");
+        hideRsvpBody();
+        disableForm(true);
+        return;
+    }
+
+    locked = !!payload.locked;
+    closed = !!payload.closed;
+
+    // ===== Locked state =====
+    if (locked) {
+        const rsvp = payload.rsvp || {};
+        const shownName = payload?.rsvp?.displayName || payload?.config?.displayName || inviteKey;
+
+        setSealNames(shownName);
+        if (rsvpDisplayNameEl) rsvpDisplayNameEl.textContent = shownName;
+        if (displayNameEl) displayNameEl.value = shownName;
+
+        const attending = String(rsvp.attending || "").toUpperCase() === "YES" ? "yes" : "no";
+
+        const gc = Number(rsvp.guestCount || 0);
+        const selected = (rsvp.selectedNamedGuests || []).join(", ");
+        const extras = (rsvp.extraGuestNames || []).join(", ");
+
+        const allGuests = [
+            ...(rsvp.selectedNamedGuests || []),
+            ...(rsvp.extraGuestNames || [])
+        ];
+
+        setStatus(
+            attending === "yes"
+                ? `RSVP already submitted ✅ You’re attending (${gc}). ${allGuests.length ? `Guests: ${allGuests.join(", ")}.` : ""
+                }`
+                : "RSVP already submitted ✅ You’re not attending.",
+            "success"
+        );
+
+        hideRsvpBody();
+        disableForm(true);
+        return;
+    }
+
+    // ===== Config state =====
+    const config = payload.config;
+
+    const displayName = config.displayName || urlName || inviteKey;
+    setSealNames(displayName);
+    if (rsvpDisplayNameEl) rsvpDisplayNameEl.textContent = displayName;
+    if (displayNameEl) displayNameEl.value = displayName;
+
+    maxGuests = Number(config.maxGuests || 1);
+    namedGuests = (config.namedGuests || []).map(normalizeName);
+    allowUnnamed = !!config.allowUnnamed;
+    notAllowedExtras = (config.notAllowedExtras || []).map((n) => normalizeName(n).toLowerCase());
+
+    if (guestMaxDisplay) guestMaxDisplay.textContent = String(maxGuests);
+
+    renderNamedGuests();
+
+    // ===== Closed =====
+    if (closed) {
+        setStatus(`RSVPs are now closed (deadline was ${formatDeadline(deadlineStr)}). Please contact us.`, "error");
+        hideRsvpBody();
+        disableForm(true);
+        return;
+    }
+
+    // ===== Ready (valid + open) =====
+    setStatus("", "info");
+    showRsvpBody();
+    disableForm(false);
+
+    // Default: guest UI hidden until "Yes"
+    guestControls.classList.add("hidden");
+    clearExtrasUI();
+
+    // ===== Submit =====
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const attendance = attendanceInput.value;
+        if (!attendance) {
+            showToast("Please select whether you will attend.", "error");
+            return;
+        }
+
+        const attending = attendance === "yes" ? "YES" : "NO";
+
+        let guestCount = 0;
+        let selectedNamedGuests = [];
+        let extraGuestNames = [];
+
+        if (attending === "YES") {
+            guestCount = Number(guestCountInput.value || "1");
+
+            selectedNamedGuests = Array.from(namedGuestsList.querySelectorAll('input[type="checkbox"]:checked'))
+                .map((cb) => normalizeName(cb.value));
+
+            extraGuestNames = getSelectedExtraNames();
+
+            for (const nm of extraGuestNames) {
+                if (notAllowedExtras.includes(nm.toLowerCase())) {
+                    showToast(`${nm} is not allowed on this invitation.`, "error");
+                    return;
+                }
+            }
+
+            const total = selectedNamedGuests.length + extraGuestNames.length;
+            if (total !== guestCount) {
+                showToast(`Please make the names match your guest count (${guestCount}).`, "error");
+                return;
+            }
+        }
+
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = "Sending…";
+        submitBtn.disabled = true;
+
+        try {
+            const params = new URLSearchParams();
+            params.set("inviteKey", inviteKey);
+            params.set("attending", attending);
+            params.set("guestCount", String(guestCount));
+            params.set("selectedNamedGuests", JSON.stringify(selectedNamedGuests));
+            params.set("extraGuestNames", JSON.stringify(extraGuestNames));
+            params.set("message", (messageEl?.value || "").trim());
+
+            const res = await fetch(RSVP_API_BASE, {
+                method: "POST",
+                body: params, // no JSON headers = no preflight
+            });
+
+            const out = await res.json();
+
+            if (!out.ok) {
+                showToast(out.message || "Something went wrong. Please try again.", "error");
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+
+            showToast("Thank you! Your RSVP has been confirmed.", "success");
+            setStatus("RSVP submitted ✅ Thank you!", "success");
+            hideRsvpBody();     // ✅ hide everything except the status message
+            disableForm(true);
+        } catch (err) {
+            showToast("Failed to submit. Please try again.", "error");
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
 }
 
 /* =========================
