@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ===== RSVP BACKEND CONFIG =====
 const RSVP_API_BASE = "https://script.google.com/macros/s/AKfycbyPe85jGsLQ2yS-BxHCtofzTgHJAwgUOibTXHo2zf7nEqDuKLOXOSrAh31TgiVs43Jd/exec";
+const KEEPSAKE_BASE_URL = "https://buddyj101.github.io/keepsake/";
 
 /* =========================
    Envelope Overlay
@@ -264,7 +265,8 @@ async function initRSVPForm() {
     // ===== DOM =====
     const params = new URLSearchParams(window.location.search);
 
-    const inviteKey = (params.get("invite") || "")
+    const inviteParam = (params.get("invite") || "").trim();
+    const inviteKey = inviteParam
         .trim()
         .toLowerCase();
 
@@ -307,6 +309,9 @@ async function initRSVPForm() {
 
     const messageEl = document.getElementById("message");
     const submitBtn = document.getElementById("rsvpSubmitBtn");
+    const keepsakeSection = document.getElementById("keepsake-section");
+    const qrContainer = document.getElementById("qr-container");
+    const keepsakeLink = document.getElementById("keepsake-link");
 
     // ===== UI helpers =====
     function hideRsvpBody() {
@@ -315,6 +320,113 @@ async function initRSVPForm() {
 
     function showRsvpBody() {
         if (rsvpBody) rsvpBody.classList.remove("hidden");
+    }
+
+    function hideKeepsakeSection() {
+        if (keepsakeSection) {
+            keepsakeSection.classList.add("hidden");
+            keepsakeSection.classList.remove("is-visible");
+        }
+        if (qrContainer) qrContainer.innerHTML = "";
+        if (keepsakeLink) keepsakeLink.removeAttribute("href");
+    }
+
+    function getQrCodeStylingCtor() {
+        if (typeof window === "undefined") return null;
+        if (typeof window.QRCodeStyling === "function") return window.QRCodeStyling;
+        if (typeof window.QRCodeStyling?.default === "function") return window.QRCodeStyling.default;
+        return null;
+    }
+
+    function loadImage(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => resolve(src);
+            img.onerror = reject;
+            img.src = src;
+        });
+    }
+
+    async function showKeepsakeSection() {
+        const inviteValue = inviteParam || inviteKey;
+        if (!keepsakeSection || !keepsakeLink || !inviteValue) return;
+
+        const keepsakeUrl = `${KEEPSAKE_BASE_URL}?invite=${encodeURIComponent(inviteValue)}`;
+        const keepsakeLogoUrl = new URL("images/keepsake-icon.png", window.location.href).href;
+        const QRCodeStylingCtor = getQrCodeStylingCtor();
+        keepsakeLink.href = keepsakeUrl;
+        
+        const qrLink = document.getElementById("qr-link");
+        qrLink.href = keepsakeUrl;
+
+        if (qrContainer) {
+            qrContainer.innerHTML = "";
+
+            if (QRCodeStylingCtor) {
+                const baseQrOptions = {
+                    width: 220,
+                    height: 220,
+                    data: keepsakeUrl,
+                    qrOptions: {
+                        errorCorrectionLevel: "H"
+                    },
+                    dotsOptions: {
+                        color: "#87CEFA",
+                        type: "rounded"
+                    },
+                    backgroundOptions: {
+                        color: "#ffffff"
+                    },
+                    cornersSquareOptions: {
+                        color: "#4a9bc4",
+                        type: "extra-rounded"
+                    },
+                    cornersDotOptions: {
+                        color: "#6bb3d9",
+                        type: "dot"
+                    }
+                };
+
+                try {
+                    let qrOptions = baseQrOptions;
+
+                    try {
+                        await loadImage(keepsakeLogoUrl);
+                        qrOptions = {
+                            ...baseQrOptions,
+                            image: keepsakeLogoUrl,
+                            imageOptions: {
+                                crossOrigin: "anonymous",
+                                margin: 6,
+                                imageSize: 0.32
+                            }
+                        };
+                    } catch (error) {
+                        qrOptions = baseQrOptions;
+                    }
+
+                    const qrCode = new QRCodeStylingCtor(qrOptions);
+                    qrCode.append(qrContainer);
+                } catch (error) {
+                    qrContainer.innerHTML = `
+                        <p class="keepsake-fallback">
+                            Open the keepsake page using the button below.
+                        </p>
+                    `;
+                }
+            } else {
+                qrContainer.innerHTML = `
+                    <p class="keepsake-fallback">
+                        QR loading is unavailable right now. The keepsake link below still works.
+                    </p>
+                `;
+            }
+        }
+
+        keepsakeSection.classList.remove("hidden");
+        keepsakeSection.classList.add("is-visible");
+        keepsakeSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
     function setSealNames(text) {
@@ -537,6 +649,8 @@ async function initRSVPForm() {
     );
 
     // ===== No invite key =====
+    hideKeepsakeSection();
+
     if (!inviteKey) {
         setSealNames("");
         if (rsvpDisplayNameEl) rsvpDisplayNameEl.textContent = "—";
@@ -611,6 +725,7 @@ async function initRSVPForm() {
 
         hideRsvpBody();
         disableForm(true);
+        await showKeepsakeSection();
         return;
     }
 
@@ -717,6 +832,7 @@ async function initRSVPForm() {
             setStatus("RSVP submitted ✅ Thank you!", "success");
             hideRsvpBody();     // ✅ hide everything except the status message
             disableForm(true);
+            await showKeepsakeSection();
         } catch (err) {
             showToast("Failed to submit. Please try again.", "error");
             submitBtn.textContent = originalText;
