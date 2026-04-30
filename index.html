@@ -497,12 +497,33 @@
         <div id="keepsake-section" class="keepsake-section hidden" aria-live="polite">
           <p class="keepsake-eyebrow">You're all set! 🎉</p>
           <p class="keepsake-copy">Scan or tap below for a little surprise from us 💙</p>
-          <a id="qr-link" target="_blank">
+          <button type="button" id="qr-trigger" class="keepsake-qr-trigger" aria-haspopup="dialog"
+            aria-controls="keepsake-modal" aria-label="Open a larger keepsake QR code">
             <div id="qr-container" class="keepsake-qr" aria-label="Keepsake QR code"></div>
-          </a>
+          </button>
           <a id="keepsake-link" class="keepsake-link" href="#" target="_blank" rel="noopener noreferrer">
             Open Keepsake 📸
           </a>
+        </div>
+
+        <div id="keepsake-modal" class="keepsake-modal hidden" aria-hidden="true">
+          <div class="keepsake-modal-backdrop" data-keepsake-close="true"></div>
+          <div class="keepsake-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="keepsake-modal-title"
+            aria-describedby="keepsake-modal-copy" tabindex="-1">
+            <button type="button" class="keepsake-modal-close" id="keepsake-modal-close"
+              aria-label="Close keepsake QR modal">
+              ×
+            </button>
+            <h3 id="keepsake-modal-title" class="keepsake-modal-title">Scan the keepsake QR</h3>
+            <p id="keepsake-modal-copy" class="keepsake-modal-copy">
+              Tap the code below to open the keepsake page.
+            </p>
+            <a id="keepsake-modal-link" class="keepsake-modal-link" href="#" target="_blank" rel="noopener noreferrer"
+              aria-label="Open keepsake page from enlarged QR code">
+              <div id="qr-modal-container" class="keepsake-qr keepsake-qr-modal" aria-label="Large keepsake QR code">
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </section>

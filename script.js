@@ -310,8 +310,24 @@ async function initRSVPForm() {
     const messageEl = document.getElementById("message");
     const submitBtn = document.getElementById("rsvpSubmitBtn");
     const keepsakeSection = document.getElementById("keepsake-section");
+    const qrTrigger = document.getElementById("qr-trigger");
     const qrContainer = document.getElementById("qr-container");
     const keepsakeLink = document.getElementById("keepsake-link");
+    const keepsakeModal = document.getElementById("keepsake-modal");
+    const keepsakeModalDialog = keepsakeModal?.querySelector(".keepsake-modal-dialog") || null;
+    const keepsakeModalClose = document.getElementById("keepsake-modal-close");
+    const keepsakeModalLink = document.getElementById("keepsake-modal-link");
+    const qrModalContainer = document.getElementById("qr-modal-container");
+    let keepsakeUrl = "";
+    let lastModalTrigger = null;
+    const modalFocusableSelector = [
+      "a[href]",
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
+      "[tabindex]:not([tabindex='-1'])"
+    ].join(",");
 
     // ===== UI helpers =====
     function hideRsvpBody() {
@@ -327,8 +343,12 @@ async function initRSVPForm() {
             keepsakeSection.classList.add("hidden");
             keepsakeSection.classList.remove("is-visible");
         }
+      closeKeepsakeModal();
         if (qrContainer) qrContainer.innerHTML = "";
+      if (qrModalContainer) qrModalContainer.innerHTML = "";
         if (keepsakeLink) keepsakeLink.removeAttribute("href");
+      if (keepsakeModalLink) keepsakeModalLink.removeAttribute("href");
+      keepsakeUrl = "";
     }
 
     function getQrCodeStylingCtor() {
@@ -348,81 +368,179 @@ async function initRSVPForm() {
         });
     }
 
+      async function renderKeepsakeQr(target, size, url, logoUrl) {
+        if (!target) return;
+
+        const QRCodeStylingCtor = getQrCodeStylingCtor();
+        target.innerHTML = "";
+
+        if (!QRCodeStylingCtor) {
+          target.innerHTML = `
+            <p class="keepsake-fallback">
+              QR loading is unavailable right now. Use the keepsake link instead.
+            </p>
+          `;
+          return;
+        }
+
+        const baseQrOptions = {
+          width: size,
+          height: size,
+          data: url,
+          qrOptions: {
+            errorCorrectionLevel: "H"
+          },
+          dotsOptions: {
+            color: "#87CEFA",
+            type: "rounded"
+          },
+          backgroundOptions: {
+            color: "#ffffff"
+          },
+          cornersSquareOptions: {
+            color: "#4a9bc4",
+            type: "extra-rounded"
+          },
+          cornersDotOptions: {
+            color: "#6bb3d9",
+            type: "dot"
+          }
+        };
+
+        try {
+          let qrOptions = baseQrOptions;
+
+          try {
+            await loadImage(logoUrl);
+            qrOptions = {
+              ...baseQrOptions,
+              image: logoUrl,
+              imageOptions: {
+                crossOrigin: "anonymous",
+                margin: 6,
+                imageSize: size >= 280 ? 0.26 : 0.32
+              }
+            };
+          } catch (error) {
+            qrOptions = baseQrOptions;
+          }
+
+          const qrCode = new QRCodeStylingCtor(qrOptions);
+          qrCode.append(target);
+        } catch (error) {
+          target.innerHTML = `
+            <p class="keepsake-fallback">
+              Open the keepsake page using the button below.
+            </p>
+          `;
+        }
+      }
+
+      function openKeepsakeModal() {
+        if (!keepsakeModal || !keepsakeUrl) return;
+
+        lastModalTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        keepsakeModal.classList.remove("hidden");
+        keepsakeModal.classList.add("is-open");
+        keepsakeModal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+        requestAnimationFrame(() => keepsakeModalDialog?.focus());
+      }
+
+      function closeKeepsakeModal() {
+        if (!keepsakeModal) return;
+
+        keepsakeModal.classList.remove("is-open");
+        keepsakeModal.classList.add("hidden");
+        keepsakeModal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+
+        if (lastModalTrigger && document.contains(lastModalTrigger)) {
+          lastModalTrigger.focus();
+        }
+      }
+
+      qrTrigger?.addEventListener("click", () => {
+        openKeepsakeModal();
+      });
+
+      keepsakeModal?.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        if (target.dataset.keepsakeClose === "true") {
+          closeKeepsakeModal();
+        }
+      });
+
+      keepsakeModalClose?.addEventListener("click", () => {
+        closeKeepsakeModal();
+      });
+
+      function trapKeepsakeModalFocus(event) {
+        if (event.key !== "Tab") return;
+        if (!keepsakeModal?.classList.contains("is-open") || !keepsakeModalDialog) return;
+
+        const focusable = Array.from(
+          keepsakeModalDialog.querySelectorAll(modalFocusableSelector)
+        ).filter((el) => el instanceof HTMLElement && el.getClientRects().length > 0);
+
+        if (!focusable.length) {
+          event.preventDefault();
+          keepsakeModalDialog.focus();
+          return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const activeElement = document.activeElement;
+
+        if (!(activeElement instanceof HTMLElement) || !keepsakeModalDialog.contains(activeElement)) {
+          event.preventDefault();
+          (event.shiftKey ? last : first).focus();
+          return;
+        }
+
+        if (activeElement === keepsakeModalDialog) {
+          event.preventDefault();
+          (event.shiftKey ? last : first).focus();
+          return;
+        }
+
+        if (event.shiftKey && activeElement === first) {
+          event.preventDefault();
+          last.focus();
+          return;
+        }
+
+        if (!event.shiftKey && activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && keepsakeModal?.classList.contains("is-open")) {
+          event.preventDefault();
+          closeKeepsakeModal();
+          return;
+        }
+
+        trapKeepsakeModalFocus(event);
+      });
+
     async function showKeepsakeSection() {
         const inviteValue = inviteParam || inviteKey;
         if (!keepsakeSection || !keepsakeLink || !inviteValue) return;
 
-        const keepsakeUrl = `${KEEPSAKE_BASE_URL}?invite=${encodeURIComponent(inviteValue)}`;
+        keepsakeUrl = `${KEEPSAKE_BASE_URL}?invite=${encodeURIComponent(inviteValue)}`;
         const keepsakeLogoUrl = new URL("images/keepsake-icon.png", window.location.href).href;
-        const QRCodeStylingCtor = getQrCodeStylingCtor();
         keepsakeLink.href = keepsakeUrl;
-        
-        const qrLink = document.getElementById("qr-link");
-        qrLink.href = keepsakeUrl;
+        if (keepsakeModalLink) keepsakeModalLink.href = keepsakeUrl;
 
-        if (qrContainer) {
-            qrContainer.innerHTML = "";
-
-            if (QRCodeStylingCtor) {
-                const baseQrOptions = {
-                    width: 220,
-                    height: 220,
-                    data: keepsakeUrl,
-                    qrOptions: {
-                        errorCorrectionLevel: "H"
-                    },
-                    dotsOptions: {
-                        color: "#87CEFA",
-                        type: "rounded"
-                    },
-                    backgroundOptions: {
-                        color: "#ffffff"
-                    },
-                    cornersSquareOptions: {
-                        color: "#4a9bc4",
-                        type: "extra-rounded"
-                    },
-                    cornersDotOptions: {
-                        color: "#6bb3d9",
-                        type: "dot"
-                    }
-                };
-
-                try {
-                    let qrOptions = baseQrOptions;
-
-                    try {
-                        await loadImage(keepsakeLogoUrl);
-                        qrOptions = {
-                            ...baseQrOptions,
-                            image: keepsakeLogoUrl,
-                            imageOptions: {
-                                crossOrigin: "anonymous",
-                                margin: 6,
-                                imageSize: 0.32
-                            }
-                        };
-                    } catch (error) {
-                        qrOptions = baseQrOptions;
-                    }
-
-                    const qrCode = new QRCodeStylingCtor(qrOptions);
-                    qrCode.append(qrContainer);
-                } catch (error) {
-                    qrContainer.innerHTML = `
-                        <p class="keepsake-fallback">
-                            Open the keepsake page using the button below.
-                        </p>
-                    `;
-                }
-            } else {
-                qrContainer.innerHTML = `
-                    <p class="keepsake-fallback">
-                        QR loading is unavailable right now. The keepsake link below still works.
-                    </p>
-                `;
-            }
-        }
+        await Promise.all([
+          renderKeepsakeQr(qrContainer, 220, keepsakeUrl, keepsakeLogoUrl),
+          renderKeepsakeQr(qrModalContainer, 320, keepsakeUrl, keepsakeLogoUrl)
+        ]);
 
         keepsakeSection.classList.remove("hidden");
         keepsakeSection.classList.add("is-visible");
